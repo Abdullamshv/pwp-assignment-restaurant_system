@@ -5,9 +5,8 @@ from customer_functions.cart_management import cart_management
 from customer_functions.order_tracking import order_tracking
 from customer_functions.dishes_review import dishes_review
 from customer_functions.view_receipt import view_receipt
-from utils.helpers import load_menu_items, load_promo_codes
+from utils.helpers import load_file
 from utils.display import show_menu
-from utils.order_management import order_management
 import os
 
 
@@ -19,12 +18,13 @@ def load_initial_data():
 
     return {
         'current_user': None,
-        'menu': load_menu_items()
+        'menu': load_file("menu.txt"),
+        'promo_codes': load_file("promo_codes.txt")
     }
 
 
 def view_promo_codes():
-    promo_codes = load_promo_codes()
+    promo_codes = load_file("promo_codes.txt")
     if not promo_codes:
         print("\nNo promo codes available at the moment.")
         return
@@ -40,8 +40,8 @@ def customer_main():
     transactions = []
     dine_in_counter = 1
     take_away_counter = 1
-    menu_items = load_menu_items()
-    promo_codes = load_promo_codes()
+    menu_items = load_file('menu_items.txt')
+    promo_codes = load_file('promo_codes.txt')
 
     while True:
         print("\n" + "=" * 40)

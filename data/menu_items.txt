@@ -1,51 +1,110 @@
-[ 
-    {
-        "item_id": "F01",
+{
+    "B1": {
+        "name": "Cheese Burger",
+        "price": 11.00,
+        "category": "Burgers",
+        "availability": "Available"
+    },
+    "B2": {
         "name": "Chicken Burger",
-        "price": 10,
-        "category": "food",
-        "available_quantity": 30
+        "price": 10.00,
+        "category": "Burgers",
+        "availability": "Available"
     },
-    {
-        "item_id": "F02",
+    "B3": {
         "name": "Fish Burger",
-        "price": 12,
-        "category": "food",
-        "available_quantity": 25
+        "price": 10.00,
+        "category": "Burgers",
+        "availability": "Available"
     },
-    { 
-        "item_id": "F03",
+    "B4": {
         "name": "Beef Burger",
-        "price": 9,
-        "category": "food",
-        "available_quantity": 30
+        "price": 11.00,
+        "category": "Burgers",
+        "availability": "Available"
     },
-    {
-        "item_id": "F04",
-        "name": "Beef & Chicken & Fish Burger",
-        "price": 7,
-        "category": "food",
-        "available_quantity": 30
+    "S1": {
+        "name": "French Fries",
+        "price": 5.00,
+        "category": "Sides",
+        "availability": "Available"
     },
-    {
-        "item_id": "B01",
-        "name": "Coke",
-        "price": 3,
-        "category": "beverage",
-        "available_quantity": 30
+    "S2": {
+        "name": "Nugget (4 Pcs)",
+        "price": 6.66,
+        "category": "Sides",
+        "availability": "Available"
     },
-    {
-        "item_id": "B02",
-        "name": "Diet Coke",
-        "price": 3,
-        "category": "beverage",
-        "available_quantity": 30
+    "S3": {
+        "name": "Nugget (6 Pcs)",
+        "price": 8.88,
+        "category": "Sides",
+        "availability": "Available"
     },
-    {
-        "item_id": "B03",
+    "S4": {
+        "name": "Nugget (9 Pcs)",
+        "price": 12.88,
+        "category": "Sides",
+        "availability": "Available"
+    },
+    "S5": {
+        "name": "Chicken Tender",
+        "price": 13.00,
+        "category": "Sides",
+        "availability": "Available"
+    },
+    "D1": {
         "name": "Cherry Coke",
-        "price": 3,
-        "category": "beverage",
-        "available_quantity": 30
+        "price": 3.00,
+        "category": "Drinks",
+        "availability": "Available"
+    },
+    "D2": {
+        "name": "Sprite",
+        "price": 3.00,
+        "category": "Drinks",
+        "availability": "Available"
+    },
+    "D3": {
+        "name": "Fanta",
+        "price": 3.00,
+        "category": "Drinks",
+        "availability": "Available"
+    },
+    "D4": {
+        "name": "Lemonade",
+        "price": 2.00,
+        "category": "Drinks",
+        "availability": "Available"
+    },
+    "D5": {
+        "name": "Mineral Water",
+        "price": 1.00,
+        "category": "Drinks",
+        "availability": "Available"
+    },
+    "M1": {
+        "name": "Family Combo",
+        "price": 85.90,
+        "category": "Meals",
+        "availability": "Available"
+    },
+    "M2": {
+        "name": "Children Combo",
+        "price": 18.00,
+        "category": "Meals",
+        "availability": "Available"
+    },
+    "M3": {
+        "name": "Double Combo",
+        "price": 25.90,
+        "category": "Meals",
+        "availability": "Available"
+    },
+    "M4": {
+        "name": "Single Combo",
+        "price": 11.90,
+        "category": "Meals",
+        "availability": "Available"
     }
-]
+}
