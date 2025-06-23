@@ -53,7 +53,7 @@ def apply_discount_to_entire_order(order_id, current_orders, menu_items, discoun
     
     if discount_type == '1':  # Percentage discount
         try:
-            percentage = float(input("Enter discount percentage for entire order (0-100): "))
+            percentage = float(input("Enter discount percentage for entire order (0-100): ").strip())
             if percentage <= 0 or percentage > 100:
                 print("Percentage must be between 0-100.")
                 return
@@ -78,7 +78,7 @@ def apply_discount_to_entire_order(order_id, current_orders, menu_items, discoun
 
     else:  # Fixed amount discount
         try:
-            amount = float(input(f"Enter fixed discount amount for entire order (max RM{remaining_value:.2f}): "))
+            amount = float(input(f"Enter fixed discount amount for entire order (max RM{remaining_value:.2f}): ").strip())
             if amount <= 0:
                 print("Amount must be positive.")
                 return
@@ -443,7 +443,7 @@ def remove_existing_discounts(order_id, current_orders, menu_items):
     print("-" * 80)
     print("=" * 80)
     try:
-        remove_idx = int(input("Enter discount number to remove (or 0 to cancel): ")) - 1
+        remove_idx = int(input("Enter discount number to remove (or 0 to cancel): ").strip()) - 1
         if remove_idx == -1:
             return
         if 0 <= remove_idx < len(current_orders[order_id]["discounts"]):
@@ -555,13 +555,13 @@ def handle_order_actions(order_id, order, current_orders, menu_items, transactio
         print("3. Checkout")
         print("4. Back ")
         
-        action = input("\nEnter Choice: ")
+        action = input("\nEnter Choice: ").strip()
     
         if action == "1":
             manage_discounts(order_id, current_orders, menu_items, promo_codes)
             
         elif action == "2":
-            confirm = input(f"Confirm cancel order {order_id}? (y/n): ").lower()
+            confirm = input(f"Confirm cancel order {order_id}? (y/n): ").strip().lower()
             if confirm == 'y':
                 del current_orders[order_id]
                 save_to_file(current_orders, "current_active_orders.txt")

@@ -228,7 +228,7 @@ def daily_sales_report(transactions, menu_items):
     # Interactive section
     print("-" * 80)
     while True:
-        choice = input("\nEnter Order Number to view details or 'done' to exit: ")
+        choice = input("\nEnter Order Number to view details or 'done' to exit: ").strip()
         if choice.lower() == 'done':
             break
         try:
