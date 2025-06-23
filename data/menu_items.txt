@@ -3,108 +3,167 @@
         "name": "Cheese Burger",
         "price": 11.00,
         "category": "Burgers",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {
+            "Bun": {"price": 0.00, "default": true},
+            "Beef Patty": {"price": 0.00, "default": true},
+            "Cheese": {"price": 0.00, "default": true},
+            "Lettuce": {"price": 0.00, "default": true},
+            "Tomato": {"price": 0.00, "default": true},
+            "Bacon": {"price": 2.50, "default": false},
+            "Avocado": {"price": 1.50, "default": false}
+        }
     },
     "B2": {
         "name": "Chicken Burger",
         "price": 10.00,
         "category": "Burgers",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {
+            "Bun": {"price": 0.00, "default": true},
+            "Chicken Patty": {"price": 0.00, "default": true},
+            "Spicy Sauce": {"price": 0.50, "default": false}
+        }
     },
     "B3": {
         "name": "Fish Burger",
         "price": 10.00,
         "category": "Burgers",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {
+            "Bun": {"price": 0.00, "default": true},
+            "Lettuce": {"price": 0.00, "default": true},
+            "Cheese": {"price": 0.00, "default": true},
+            "Tartar Sauce": {"price": 0.00, "default": true},
+            "Fish Patty": {"price": 0.00, "default": true}
+        }
     },
     "B4": {
         "name": "Beef Burger",
         "price": 11.00,
         "category": "Burgers",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {
+            "Bun": {"price": 0.00, "default": true},
+            "Beef Patty": {"price": 0.00, "default": true},
+            "Cheese": {"price": 0.00, "default": true},
+            "Lettuce": {"price": 0.00, "default": true},
+            "Tomato": {"price": 0.00, "default": true}
+        }
     },
     "S1": {
         "name": "French Fries",
         "price": 5.00,
         "category": "Sides",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "S2": {
         "name": "Nugget (4 Pcs)",
         "price": 6.66,
         "category": "Sides",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "S3": {
         "name": "Nugget (6 Pcs)",
         "price": 8.88,
         "category": "Sides",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "S4": {
         "name": "Nugget (9 Pcs)",
         "price": 12.88,
         "category": "Sides",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "S5": {
         "name": "Chicken Tender",
         "price": 13.00,
         "category": "Sides",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "D1": {
         "name": "Cherry Coke",
         "price": 3.00,
         "category": "Drinks",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "D2": {
         "name": "Sprite",
         "price": 3.00,
         "category": "Drinks",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "D3": {
         "name": "Fanta",
         "price": 3.00,
         "category": "Drinks",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "D4": {
         "name": "Lemonade",
         "price": 2.00,
         "category": "Drinks",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "D5": {
         "name": "Mineral Water",
         "price": 1.00,
         "category": "Drinks",
-        "availability": "Available"
+        "availability": "Available",
+        "ingredients": {}
     },
     "M1": {
         "name": "Family Combo",
         "price": 85.90,
         "category": "Meals",
-        "availability": "Available"
+        "availability": "Available",
+        "contents": {
+            "B1": 3,
+            "B2": 2,
+            "S4": 1,
+            "S5": 1,
+            "D1": 5
+        }
     },
     "M2": {
         "name": "Children Combo",
         "price": 18.00,
         "category": "Meals",
-        "availability": "Available"
+        "availability": "Available",
+        "contents": {
+            "B3": 1,
+            "S1": 1,
+            "S5": 1,
+            "D1": 1
+        }
     },
     "M3": {
         "name": "Double Combo",
         "price": 25.90,
         "category": "Meals",
-        "availability": "Available"
+        "availability": "Available",
+        "contents": {
+            "B4": 2,
+            "D1": 2
+        }
     },
     "M4": {
         "name": "Single Combo",
         "price": 11.90,
         "category": "Meals",
-        "availability": "Available"
+        "availability": "Available",
+        "contents": {
+            "B2": 1,
+            "D1": 1
+        }
     }
 }

@@ -4,142 +4,137 @@ Functions for displaying menus, promo codes, and order details in a restaurant s
 """
 
 from datetime import datetime
-
-
-# ==============================================
-# CORE DISPLAY FUNCTIONS
-# ==============================================
+from utils.helpers import calculate_custom_price
 
 def show_menu(menu_items):
-    """Display the menu with consistent formatting and availability."""
-    # Header section
     print(f"\n{'=' * 80}")
-    print(f"{f'{"MENU"}':^{80}}")
+    print(f"{'MENU':^{80}}")
     print(f"{'=' * 80}")
-    
-    # Column headers
-    print(f"{'Code':<6} | "
-          f"{'Name':<30} | "
-          f"{'Price':<9} | "
-          f"{'Category':<11} | "
-          f"{'Availability':>9}")
+    print(f"{'Code':<6} | {'Name':<30} | {'Price':<9} | {'Category':<11} | {'Availability':>9}")
     print("-" * 80)
-
-    # Menu items
     for code, item in menu_items.items():
-        print(f"{code:<6} | "
-              f"{item['name']:<30} | "
-              f"RM{item['price']:>7.2f} | "
-              f"{item['category']:<11} | "
-              f"{item['availability']:>9}")
-    
+        print(f"{code:<6} | {item['name']:<30} | RM{item['price']:>7.2f} | {item['category']:<11} | {item['availability']:>9}")
     print("=" * 80)
 
 def show_promo_codes(promo_codes):
-    """Display promo codes with consistent formatting."""
     print(f"\n{'=' * 80}")
-    print(f"{f'{"PROMO CODES"}':^{80}}")
+    print(f"{'PROMO CODES':^{80}}")
     print(f"{'=' * 80}")
-    
-    # Column headers
     print(f"{'Code':<17} | {'Type':<12} | {'Value':<8} | {'Description':<30}")
     print("-" * 80)
-
-    # Promo items
     for code, promo in promo_codes.items():
-        value_str = f"{promo['value']}%" if promo['type'] == 'percentage' else f"${promo['value']:.2f}"
+        value_str = f"{promo['value']}%" if promo['type'] == 'percentage' else f"RM{promo['value']:.2f}"
         print(f"{code:<17} | {promo['type']:<12} | {value_str:<8} | {promo.get('description', ''):<30}")
-    
     print("=" * 80)
 
-# ==============================================
-# ORDER DISPLAY FUNCTIONS
-# ==============================================
-
 def view_order_details(header, order_id, order, menu_items):
-    """Display detailed breakdown of a single order in receipt-style format."""
-    # Constants for formatting (matching receipt style)
-
-    # Header
     print(f"\n{'=' * 80}")
-    print(f"{f'{header}':^{80}}")
+    print(f"{header:^{80}}")
     print(f"{'=' * 80}")
     print(f"Order ID: {order_id}")
     print(f"Type: {order.get('type', 'N/A')}")
     if order.get('display_name'):
         print(f"Customer: {order['display_name']}")
-        
     if order['type'] == 'Dine-In':
         print(f"Table Number: {order.get('table_number', 'N/A')}")
-    
-    # Timestamp handling
-    order_timestamp = order.get('timestamp', datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    print(f"Date: {order_timestamp}")
-
+    print(f"Date: {order.get('timestamp', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))}")
+    print(f"Status: {order.get('status', 'Preparing')}")
     print("-" * 80)
     
     # Items header
-    print(f"{'Item':<{45}} {'Qty':^{10}} {'Price':>{10}} {'Total':>{10}}")
+    print(f"{'Item':<45} {'Qty':^10} {'Price':>10} {'Total':>10}")
     print("-" * 80)
     
     subtotal = 0
-    for item_code, qty in order.get("items", []):
-        item = menu_items.get(item_code)
-        if not item:
-            print(f"ERROR: Item '{item_code}' not found in menu. Skipping.")
-            continue
-
-        line_total = qty * item['price']
+    for item in order.get("items", []):
+        item_code = item[0]
+        qty = item[1]
+        remark = item[2] if len(item) > 2 else ""
+        
+        item_data = menu_items.get(item_code, {})
+        item_name = item_data.get('name', f'Unknown Item ({item_code})')
+        
+        # Handle customized items
+        if "item_details" in order and item_code in order["item_details"]:
+            item_name = order["item_details"][item_code]
+            price = calculate_custom_price(item_code, order["item_details"][item_code], menu_items, order)
+        elif "cart_contents" in order and any(c['id'] == item_code for c in order["cart_contents"]):
+            # For combo items, use the price from item_details if available
+            customized_desc = next(
+                (c['custom_description'] for c in order["cart_contents"] 
+                if c['id'] == item_code and 'custom_description' in c),
+                None
+            )
+            if customized_desc:
+                price = calculate_custom_price(item_code, customized_desc, menu_items)
+            else:
+                price = item_data.get('price', 0)
+        else:
+            price = item_data.get('price', 0)
+        
+        line_total = qty * price
         subtotal += line_total
-        print(
-            f"{item['name']:<{45}} "
-            f"{f'x{qty}':^{10}} "
-            f"RM{item['price']:>{9}.2f} "
-            f"RM{line_total:>{9}.2f}"
-        )
-    
+        
+        print(f"{item_name:<45} {f'x{qty}':^10} RM{price:>9.2f} RM{line_total:>9.2f}")
+        if remark:
+            print(f"  Remark: {remark}")
+        
+        if (item_code in menu_items and 'contents' in menu_items[item_code] and "cart_contents" in order and any(c['id'] == item_code for c in order["cart_contents"])):
+            print(f"  {'Combo Contents:':<43}")
+            for content in order["cart_contents"]:
+                if content['id'] == item_code and 'contents' in content:
+                    for content_code, content_data in content['contents'].items():
+                        if isinstance(content_data, list):
+                            for custom_item in content_data:
+                                if custom_item.get('customizations'):
+                                    custom_name = custom_item['customizations'].get('name', 
+                                        menu_items.get(content_code, {}).get('name', f'Unknown ({content_code})'))
+                                    print(f"    - {custom_name} x{custom_item.get('quantity', 1)}")
+                                else:
+                                    content_name = menu_items.get(content_code, {}).get('name', f'Unknown ({content_code})')
+                                    print(f"    - {content_name} x{content_data[0].get('quantity', 1)}")
+                        elif content_data.get('customizations'):
+                            custom_name = content_data['customizations'].get('name', 
+                                menu_items.get(content_code, {}).get('name', f'Unknown ({content_code})'))
+                            print(f"    - {custom_name} x{content_data.get('quantity', 1)}")
+                        else:
+                            content_name = menu_items.get(content_code, {}).get('name', f'Unknown ({content_code})')
+                            print(f"    - {content_name} x{content_data.get('quantity', 1)}")
+    # Discounts
     total_discount = 0
     if order.get('discounts'):
         print("-" * 80)
-        print(f"{'Discount Apply:'}")
+        print(f"{'Discounts Applied:':<80}")
         for discount in order['discounts']:
             amount = discount.get('amount', 0)
             total_discount += amount
-            print(
-                f"- {discount.get('description', 'Discount'):<{66}}"
-                f"-RM{amount:>9.2f}"
-            )
-
-    if order.get("remarks"):
-        print(f"\nRemarks: {order['remarks']}")
-
-    # Totals section
-    print("=" * 80)
-    print(f"{'Subtotal:':<{68}} RM{subtotal:>{9}.2f}")
+            print(f"- {discount.get('description', 'Discount'):<66}-RM{amount:>9.2f}")
     
+    # Order remarks
+    if order.get("remarks"):
+        print(f"\nOrder Remarks: {order['remarks']}")
+    
+    # Totals
+    print("=" * 80)
+    print(f"{'Subtotal:':<68} RM{subtotal:>9.2f}")
     if total_discount > 0:
-        print(f"{'Discounts:':<{67}} -RM{total_discount:>{9}.2f}")
+        print(f"{'Discounts:':<67} -RM{total_discount:>9.2f}")
         print("-" * 80)
     
-    taxable_amount = subtotal - total_discount
-    if taxable_amount < 0:
-        taxable_amount = 0.00
-
+    taxable_amount = max(0, subtotal - total_discount)
     tax = taxable_amount * 0.06
-    print(f"{'Tax (6%):':<68} RM{tax:>{9}.2f}")
-
-    final_total = taxable_amount + tax
-    print(f"{'TOTAL:':<68} RM{final_total:>{9}.2f}")
+    print(f"{'Tax (6%):':<68} RM{tax:>9.2f}")
+    print(f"{'TOTAL:':<68} RM{(taxable_amount + tax):>9.2f}")
     print("=" * 80)
 
 # ==============================================
-# REPORT FUNCTIONS
+# REPORT FUNCTIONS 
 # ==============================================
 
 def daily_sales_report(transactions, menu_items):
     """Generate a professional daily sales report with perfect alignment."""
     print(f"\n{'=' * 80}")
-    print(f"{f'{"DAILY SALES REPORT"}':^{80}}")
+    print(f"{'DAILY SALES REPORT':^{80}}")
     print(f"{'=' * 80}")
     
     today = datetime.now().strftime("%Y-%m-%d")
@@ -161,7 +156,7 @@ def daily_sales_report(transactions, menu_items):
     
     print(f"\n{'-' * 80}")
     print(f"{f' {"Financial Summary"} ':^{80}}")
-    print(f"\n{'-' * 80}")
+    print(f"{'-' * 80}")
 
     print(f"{'Total Discounts Given:':<64}RM{report_data['total_discounts']:>14.2f}")
     print(f"{'Total Sales Amount:':<64}RM{report_data['total_sales']:>14.2f}")
@@ -192,8 +187,6 @@ def daily_sales_report(transactions, menu_items):
     if not report_data["top_items"]:
         return
     
-    
-
     print(f"\n{'-' * 80}")
     print(f"{f' {"Top Selling Items"} ':^{80}}")
     print(f"{'-' * 80}")
@@ -227,8 +220,8 @@ def daily_sales_report(transactions, menu_items):
             f"[{i}]:".ljust(8) + " " +
             order_id.ljust(16) + " " +  # Use the dictionary key as order_id
             trans['payment_method'].title().ljust(20) + " " +
-            trans['type'].replace('-', ' ').title().ljust(17) + " " +
-            f"${trans['total']:>14.2f}"
+            trans['type'].replace('-', ' ').title().ljust(16) + " " +
+            f"RM{trans['total']:>14.2f}"
         )
         print(row)
     
@@ -266,7 +259,7 @@ def _calculate_report_data(transactions, d):
     payment_types = {
         'cash': {'total': 0, 'count': 0},
         'card': {'total': 0, 'count': 0},
-        'touch n go': {'total': 0, 'count': 0}
+        "touch 'n go": {'total': 0, 'count': 0}
     }
     
     # Initialize other metrics
@@ -281,13 +274,19 @@ def _calculate_report_data(transactions, d):
     for order_id, transaction in transactions.items():
         # Update totals
         total_sales += transaction['total']
-        total_discounts += (transaction.get('subtotal', transaction['total']) - transaction['total'])
+        total_discounts += sum(d['amount'] for d in transaction.get('discounts', []))
         
-        # Update payment types
-        payment_method = transaction.get('payment_method')
-        if payment_method in payment_types:
-            payment_types[payment_method]['total'] += transaction['total']
-            payment_types[payment_method]['count'] += 1
+        # Normalize payment method for comparison
+        payment_method = transaction.get('payment_method', '').lower()
+        if "card" in payment_method:
+            payment_types['card']['total'] += transaction['total']
+            payment_types['card']['count'] += 1
+        elif "cash" in payment_method:
+            payment_types['cash']['total'] += transaction['total']
+            payment_types['cash']['count'] += 1
+        elif "touch" in payment_method.lower() or "n go" in payment_method.lower():
+            payment_types["touch 'n go"]['total'] += transaction['total']
+            payment_types["touch 'n go"]['count'] += 1
         
         # Update item sales
         for item in transaction.get('items', []):
@@ -295,11 +294,12 @@ def _calculate_report_data(transactions, d):
             qty = item[1]
             item_sales[item_code] = item_sales.get(item_code, 0) + qty
         
-        # Update order type counts
-        if transaction.get('type') == 'Dine-In':
+        # Normalize order type for comparison
+        order_type = transaction.get('type', '').lower()
+        if "dine" in order_type:  # Matches "Dine-In" or "Dine In"
             dine_in_count += 1
             dine_in_total += transaction['total']
-        elif transaction.get('type') == 'Take Away':
+        else:  # Assume anything else is takeaway
             take_away_count += 1
             take_away_total += transaction['total']
     

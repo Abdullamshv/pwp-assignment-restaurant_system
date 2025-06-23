@@ -86,5 +86,18 @@
         "value": 15,
         "description": "15% off total",
         "apply_to": "total"
+    },
+    "TUNGTUNGTUNGSAHUR": {
+        "type": "percentage",
+        "value": 1,
+        "description": "1% off total",
+        "apply_to": "total"
+    },
+    "TRALALEROTRALALA": {
+        "type": "fixed",
+        "value": 1,
+        "description": "RM1 off Chicken Tender",
+        "apply_to": "specific_item",
+        "item_code": "S5"
     }
 }
