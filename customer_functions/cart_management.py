@@ -1,8 +1,7 @@
 import os
 import json
 from datetime import datetime
-from utils.helpers import load_menu_items
-
+from utils.helpers import load_file
 def load_cart(user):
     cart = []
     try:
@@ -317,7 +316,7 @@ def checkout(current_user, cart):
 
 
 def cart_management(current_user, menu):
-    menu = load_menu_items
+    menu = load_file("menu_items.txt")
     if not current_user:
         print("Please login first")
         return current_user
