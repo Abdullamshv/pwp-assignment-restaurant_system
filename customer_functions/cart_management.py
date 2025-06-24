@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import datetime
-from utils.helpers import load_file
+
 def load_cart(user):
     cart = []
     try:
@@ -56,6 +56,11 @@ def save_order(order_data):
     os.makedirs("data", exist_ok=True)
     all_orders = load_all_orders()
     order_id = next(iter(order_data))
+
+    # Store the complete cart contents for combo meals
+    if 'cart_contents' in order_data[order_id]:
+        order_data[order_id]['customizations'] = order_data[order_id]['cart_contents']
+
     all_orders[order_id] = order_data[order_id]
 
     with open("data/orders.txt", "w") as f:
@@ -77,12 +82,10 @@ def display_cart(cart):
         else:
             print(f"{idx}. {item['name']} x{item['quantity']} - RM{item['price']:.2f}{remarks_str}")
 
-    # Print combo details
     for item in cart:
         if item['type'] == 'combo':
             print(f"\n{item['name']} (Customized):")
             for comp_id, components in item['contents'].items():
-                # Handle both list and dictionary formats
                 if isinstance(components, list):
                     for component in components:
                         if component['customizations']:
@@ -121,7 +124,7 @@ def customize_item(menu_item, full_menu=None, is_combo_part=False, component_id=
 
     # ===== COMBO CUSTOMIZATION =====
     if item['type'] == 'combo' and full_menu:
-        print(f"\n{'=' * 30}\n⚡ Customizing {item['name']} Combo ⚡\n{'=' * 30}")
+        print(f"\n{'=' * 30}\n Customizing {item['name']} Combo \n{'=' * 30}")
         item['contents'] = {}
 
         for comp_id, fixed_qty in menu_item.get('contents', {}).items():
@@ -272,7 +275,7 @@ def checkout(current_user, cart):
         print("Invalid choice. Please enter 1 or 2.")
         order_type = input("Order type (1 for Dine-In, 2 for Takeaway): ").strip()
 
-    table_num = "0"
+    table_num = ""
     if order_type == "1":
         table_num = input("Enter table number: ").strip()
         while not table_num.isdigit():
@@ -290,8 +293,10 @@ def checkout(current_user, cart):
             "system_user": current_user,
             "display_name": customer_name,
             "type": "Dine-In" if order_type == "1" else "Takeaway",
-            "table_number": int(table_num),
-            "items": [[item['id'], item['quantity']] for item in cart],
+            "table_number": table_num,
+            "items": [[item['id'], item['quantity'], item.get('remarks', '')] for item in cart],
+            "item_details": {item['id']: item['name'] for item in cart},
+            "cart_contents": [item for item in cart],  # NEW: Save complete cart data
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "remarks": remarks,
             "status": "Preparing"
@@ -306,8 +311,8 @@ def checkout(current_user, cart):
     print(f"Order ID: {order_id}")
     print(f"Customer: {customer_name}")
     print("Items:")
-    for item_id, qty in order_data[order_id]['items']:
-        print(f"  - {item_id} x{qty}")
+    for item_id, qty, item_remarks in order_data[order_id]['items']:
+        print(f"  - {item_id} x{qty}" + (f" (Remarks: {item_remarks})" if item_remarks else ""))
     print(f"Remarks: {remarks if remarks else 'None'}")
 
     # Clear cart
@@ -316,7 +321,6 @@ def checkout(current_user, cart):
 
 
 def cart_management(current_user, menu):
-    menu = load_file("menu_items.txt")
     if not current_user:
         print("Please login first")
         return current_user
