@@ -4,7 +4,7 @@ from users.manager import manager_menu
 from users.customer import customer_main
 
 ACCOUNTS_FILE = "data/users.txt"
-
+print("testing")
 
 def load_accounts():
     accounts = {}
