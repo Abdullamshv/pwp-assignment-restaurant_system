@@ -126,7 +126,6 @@ def generate_receipt_lines(order_id, order, payment_method, menu_items):
 
     # Header
     lines.append("=" * 80)
-    lines.append(f"{'RECEIPT':^{80}}")
     lines.append("=" * 80)
     lines.append(f"Order ID: {order_id}")
     lines.append(f"Type: {order.get('type', 'N/A')}")
@@ -135,6 +134,8 @@ def generate_receipt_lines(order_id, order, payment_method, menu_items):
     if order['type'] == 'Dine-In':
         lines.append(f"Table Number: {order.get('table_number', 'N/A')}")
     lines.append(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    if payment_method:
+        lines.append(f"Payment Method: {payment_method.title()}")
     lines.append("-" * 80)
     
     # Items header
