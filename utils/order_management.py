@@ -1,14 +1,7 @@
-# This file is mainly designed for managing restaurant orders, including creating new orders,
-# adding items, applying and removing discounts or promo codes, processing checkouts, and
-# handling active orders. It provides functions for order item management, discount logic,
-# order status updates, and transaction processing in a point-of-sale system.
-
 from utils.helpers import calculate_order_total, calculate_custom_price, generate_receipt, load_file, save_to_file
 from utils.display import view_order_details, show_promo_codes
 from datetime import datetime
-
 def apply_discount_to_entire_order(order_id, current_orders, menu_items, discount_type):
-    """Apply discount to the entire order with proper sequential calculation"""
     # Calculate order total using comprehensive logic
     subtotal = 0
     for item in current_orders[order_id].get("items", []):
@@ -103,7 +96,6 @@ def apply_discount_to_entire_order(order_id, current_orders, menu_items, discoun
     view_order_details("Order Details", order_id, current_orders[order_id], menu_items)
     
 def apply_discount_to_specific_item(order_id, current_orders, menu_items, discount_type):
-    """Apply discount to a specific menu item"""
     print("=" * 80)
     print(f"{'Current Order Items':^{80}}")
     print("=" * 80)
@@ -244,7 +236,6 @@ def apply_discount_to_specific_item(order_id, current_orders, menu_items, discou
         print("Please try again.")
 
 def apply_promo_code(order_id, current_orders, menu_items, promo_codes):
-    """Apply promo code with proper sequential discount calculation"""
     show_promo_codes(promo_codes)
     
     promo_code = input("\nEnter promo code (or 'done' to cancel): ").strip().upper()
@@ -320,7 +311,7 @@ def apply_promo_code(order_id, current_orders, menu_items, promo_codes):
         remaining_value = max(0, applicable_total - existing_discounts)
 
     elif promo['apply_to'] == 'total':
-        # For total order discounts
+
  # For total order discounts
         subtotal = 0
         for item in current_orders[order_id].get("items", []):
@@ -394,7 +385,6 @@ def apply_promo_code(order_id, current_orders, menu_items, promo_codes):
     view_order_details("Order Details", order_id, current_orders[order_id], menu_items)
 
 def apply_new_discount(order_id, current_orders, menu_items, promo_codes):
-    """Apply a new discount to the order"""
     while True:
         print("\nSelect Discount Type:")
         print("1. Percentage Discount")
@@ -426,7 +416,6 @@ def apply_new_discount(order_id, current_orders, menu_items, promo_codes):
             print("Invalid choice. Please enter 1, 2 or 3.")
 
 def remove_existing_discounts(order_id, current_orders, menu_items):
-    """Remove an existing discount from the order"""
     if not current_orders[order_id].get("discounts"):
         print("No discounts applied to this order.")
         return
@@ -459,7 +448,6 @@ def remove_existing_discounts(order_id, current_orders, menu_items):
         print("3 Please enter a valid number.")
 
 def manage_discounts(order_id, current_orders, menu_items, promo_codes):
-    """Handle all discount operations for an order"""
     if order_id not in current_orders:
         print("No active order found!")
         return
@@ -491,8 +479,7 @@ def manage_discounts(order_id, current_orders, menu_items, promo_codes):
 def process_checkout(order_id, order, current_orders, menu_items, transactions):
     calc = calculate_order_total(order_id, current_orders, menu_items)
 
-    # Ensure total is not negative
-    total = max(0, calc['total'])  # This will set negative totals to 0
+    total = max(0, calc['total'])
 
     view_order_details("Order Details", order_id, order, menu_items)
     while True:
@@ -526,9 +513,9 @@ def process_checkout(order_id, order, current_orders, menu_items, transactions):
         "customizations": order.get("customizations", []),
         "cart_contents": order.get("cart_contents", []),
         "discounts": calc['discount_details'],
-        "subtotal": calc['subtotal'],  # Added for reporting
-        "tax": max(0, calc['total'] - calc['subtotal']),  # Ensure tax isn't negative
-        "total": total,  # Using the corrected total here
+        "subtotal": calc['subtotal'], 
+        "tax": max(0, calc['total'] - calc['subtotal']), 
+        "total": total,  
         "payment_method": payment_method,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "system_user": order.get("system_user", ""),
@@ -590,7 +577,7 @@ def view_active_orders(current_orders, menu_items, transactions):
 
         orders_list = list(current_orders.items())
         for idx, (oid, order) in enumerate(orders_list, 1):
-            status = order.get('status', 'Preparing')
+            status = order.get('status', '[Pending]')
             line = f"[{idx}]: {oid:12}"
             status_str = f"Status: {status}"
             print(f"{line}{status_str:>{80 - len(line)}}")
@@ -613,60 +600,5 @@ def view_active_orders(current_orders, menu_items, transactions):
                 print("Invalid order number!")
         except ValueError:
             print("4 Please enter a valid number!")
-
-def process_received_order(order_data, current_orders, menu_items):
-    try:
-        # Generate order ID if not provided
-        order_id = order_data.get("system_user", f"ORDER_{datetime.now().strftime('%Y%m%d%H%M%S')}")
-        
-        # Validate required fields
-        if "items" not in order_data or not order_data["items"]:
-            print("Error: Order contains no items")
-            return None
-            
-        # Calculate prices for customized items
-        if "cart_contents" in order_data:
-            for item in order_data["cart_contents"]:
-                if isinstance(item, dict) and 'id' in item:
-                    item_code = item['id']
-                    if item_code in menu_items and 'contents' in menu_items[item_code]:  # It's a combo
-                        addons_total = 0
-                        for content_code, content_data in item.get('contents', {}).items():
-                            if isinstance(content_data, list):
-                                for custom_item in content_data:
-                                    if custom_item and isinstance(custom_item, dict) and custom_item.get('customizations'):
-                                        base_price = menu_items.get(content_code, {}).get('price', 0)
-                                        custom_price = custom_item['customizations'].get('price', base_price)
-                                        quantity = custom_item.get('quantity', 1)
-                                        addons_total += (custom_price - base_price) * quantity
-                        
-                        if addons_total > 0:
-                            if "item_details" not in order_data:
-                                order_data["item_details"] = {}
-                            order_data["item_details"][item_code] = f"{menu_items[item_code]['name']} +Customizations"
-                            
-                            # Update price in customizations if exists
-                            if "customizations" in order_data:
-                                for custom in order_data["customizations"]:
-                                    if custom.get("id") == item_code:
-                                        custom["price"] = menu_items[item_code]['price'] + addons_total
-
-        # Set default values if missing
-        order_data.setdefault("status", "Pending")
-        order_data.setdefault("timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        
-        # Save the order
-        current_orders[order_id] = order_data
-        save_to_file(current_orders, "current_active_orders.txt")
-        
-        print(f"\nSuccessfully processed order {order_id}")
-        view_order_details("New Order Received", order_id, order_data, menu_items)
-        return order_id
-        
-    except Exception as e:
-        print(f"Error processing order: {e}")
-        return None
-
-
 
 
