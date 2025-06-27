@@ -1,6 +1,8 @@
 import os
 import json
 
+PROMO_FILE = os.path.join("data", "promo_codes.txt")
+
 def load_lines_from_file(filename, default=[]):
     filepath = os.path.join("data", filename)
     if not os.path.exists(filepath):
@@ -59,40 +61,77 @@ def save_lines_to_file(filename, lines):
             file.write(line.strip() + "\n")
             
 def view_all_orders():
-    path = os.path.join("data", "orders.txt")
-    if not os.path.exists(path):
-        print("No orders yet.")
-        return
-
-    with open(path, "r") as f:
-        try:
-            orders = json.load(f)
-        except json.JSONDecodeError:
-            print("Orders file is empty or corrupted.")
-            return
-
-    if not orders:
+    orders_file = os.path.join("data", "orders.txt")
+    if not os.path.exists(orders_file):
         print("No orders found.")
         return
 
-    print("\n=== ALL ORDERS ===")
-    for order_id, details in orders.items():
+    try:
+        with open(orders_file, "r") as f:
+            all_orders = json.load(f)
+    except json.JSONDecodeError:
+        print("Error reading orders.")
+        return
+
+    if not all_orders:
+        print("No orders found.")
+        return
+
+    print("\n=== All Orders ===")
+    for order_id, order in all_orders.items():
         print(f"\nOrder ID: {order_id}")
-        print(f"Customer: {details.get('display_name', 'N/A')}")
-        print(f"Type: {details.get('type', 'N/A')}")
-        print(f"Table: {details.get('table_number', '-')}")
-        print(f"Status: {details.get('status', 'N/A')}")
-        print(f"Timestamp: {details.get('timestamp', 'N/A')}")
+        print(f"Customer: {order.get('display_name')}")
+        print(f"Order Type: {order.get('type')}")
+        print(f"Table Number: {order.get('table_number', 'N/A')}")
         print("Items:")
-        for item in details.get('cart_contents', []):
-            print(f" - {item.get('name', 'Unknown')} x{item.get('quantity', 1)} RM{item.get('price', 0):.2f}")
-        print(f"Remarks: {details.get('remarks', 'None')}")
+        for item in order.get("cart_contents", []):
+            print(f"  - {item['name']} x{item['quantity']} (RM{item['price']:.2f})")
+
+        promo_code = order.get("promo_code")
+        if promo_code:
+            print(f"Promo Code Applied: {promo_code}")
+        else:
+            print("Promo Code Applied: None")
+
+        print(f"Total: RM{order.get('total', 0):.2f}")
+        print(f"Timestamp: {order.get('timestamp')}")
+        print(f"Status: {order.get('status')}")
         
 def track_finances():
-    finances = load_lines_from_file("finances.txt", default=[])
-    print("\n--- Finances ---")
-    for line in finances:
-        print(line)
+    orders_file = os.path.join("data", "orders.txt")
+    if not os.path.exists(orders_file):
+        print("No orders found.")
+        return
+
+    try:
+        with open(orders_file, "r") as f:
+            all_orders = json.load(f)
+    except json.JSONDecodeError:
+        print("Error reading orders.")
+        return
+
+    total_revenue = 0
+    dine_in_count = 0
+    takeaway_count = 0
+    total_discounts = 0
+
+    for order in all_orders.values():
+        total_revenue += order.get("total", 0)
+        if order.get("type") == "Dine-In":
+            dine_in_count += 1
+        elif order.get("type") == "Takeaway":
+            takeaway_count += 1
+
+        # Если был применён промокод — показать
+        if "promo_code" in order and order["promo_code"]:
+            original_total = sum(item['price'] * item['quantity'] for item in order.get("cart_contents", []))
+            total_discounts += max(0, original_total - order.get("total", 0))
+
+    print("\n=== Financial Summary ===")
+    print(f"Total revenue: RM{total_revenue:.2f}")
+    print(f"Total dine-in orders: {dine_in_count}")
+    print(f"Total takeaway orders: {takeaway_count}")
+    print(f"Total discounts given: RM{total_discounts:.2f}")
 
 def manage_inventory():
     inventory = load_lines_from_file("menu_data.py", default=[])
@@ -105,3 +144,105 @@ def view_customer_feedback():
     print("\n--- Customer Feedback ---")
     for review in feedback:
         print(review)
+
+
+def load_promos():
+    try:
+        with open(PROMO_FILE, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+def save_promos(promos):
+    with open(PROMO_FILE, "w") as f:
+        json.dump(promos, f, indent=4)
+
+def view_all_promo_codes():
+    promos = load_promos()
+    if not promos:
+        print("\nNo promo codes available.")
+        return
+
+    print("\n=== All Promo Codes ===")
+    for code, details in promos.items():
+        print(f"\nCode: {code}")
+        print(f"  Description: {details.get('description', '-')}")
+        print(f"  Type: {details.get('type')} ({details.get('value')})")
+        print(f"  Apply to: {details.get('apply_to')}")
+        if details.get('apply_to') == "specific_item":
+            print(f"  Item Code: {details.get('item_code')}")
+    print()
+
+def add_promo_code():
+    promos = load_promos()
+
+    code = input("Enter promo code name (e.g., BIGSALE): ").strip().upper()
+    if not code or code in promos:
+        print("Invalid or duplicate promo code.")
+        return
+
+    type_ = input("Type (fixed/percentage): ").strip().lower()
+    if type_ not in ("fixed", "percentage"):
+        print("Invalid type.")
+        return
+
+    try:
+        value = float(input("Enter discount value: ").strip())
+    except ValueError:
+        print("Invalid value.")
+        return
+
+    description = input("Enter description: ").strip()
+
+    apply_to = input("Apply to ('total' or 'specific_item'): ").strip().lower()
+    item_code = ""
+    if apply_to == "specific_item":
+        item_code = input("Enter item code (e.g., B1): ").strip().upper()
+
+    promos[code] = {
+        "type": type_,
+        "value": value,
+        "description": description,
+        "apply_to": apply_to
+    }
+    if item_code:
+        promos[code]["item_code"] = item_code
+
+    save_promos(promos)
+    print(f"Promo code '{code}' added successfully.")
+
+def delete_promo_code():
+    promos = load_promos()
+    if not promos:
+        print("No promo codes to delete.")
+        return
+
+    code = input("Enter the promo code to delete: ").strip().upper()
+    if code not in promos:
+        print("Promo code not found.")
+        return
+
+    del promos[code]
+    save_promos(promos)
+    print(f"Promo code '{code}' deleted.")
+    
+def manage_promo_codes():
+    while True:
+        print("\n=== Promo Code Management ===")
+        print("1. View All Promo Codes")
+        print("2. Add New Promo Code")
+        print("3. Delete Promo Code")
+        print("4. Back")
+
+        choice = input("Choose option (1-4): ").strip()
+
+        if choice == "1":
+            view_all_promo_codes()
+        elif choice == "2":
+            add_promo_code()
+        elif choice == "3":
+            delete_promo_code()
+        elif choice == "4":
+            break
+        else:
+            print("Invalid option.")
