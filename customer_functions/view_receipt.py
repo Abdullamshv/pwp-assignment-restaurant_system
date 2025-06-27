@@ -1,38 +1,33 @@
-import json
+def view_receipt(current_user):
+    import json, os
 
-def view_receipt(username):
-    try:
-        with open("data/receipt.json", "r", encoding="utf-8") as f:
-            all_receipts = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("\nNo receipts available.")
+    path = os.path.join("data", "orders.txt")
+    if not os.path.exists(path):
+        print("No orders found.")
         return
 
-    user_receipts = {
-        oid: r for oid, r in all_receipts.items()
-        if r.get("system_user") == username
-    }
+    with open(path, "r") as f:
+        orders = json.load(f)
 
-    if not user_receipts:
-        print("\nYou have no receipts yet.")
-        return
-
-    # Найдём последний заказ по дате
-    last_id, last = max(user_receipts.items(), key=lambda x: x[1]["timestamp"])
-
-    print("\n" + "=" * 40)
-    print(f"🧾 Receipt for Order {last_id}")
-    print("-" * 40)
-    print(f"Status   : {last.get('status')}")
-    print(f"Type     : {last.get('type')}")
-    print(f"Date     : {last.get('timestamp')}")
-    if last.get("type") == "Dine-In":
-        print(f"Table No : {last.get('table_number')}")
-    if last.get("remarks"):
-        print(f"Remarks  : {last.get('remarks')}")
-    print("\nItems:")
-    for item in last["items"]:
-        print(f" - {item['name']} x{item['quantity']} @ ${item['price_each']:.2f} "
-              f"= ${item['subtotal']:.2f}")
-    print(f"\nTotal: ${last['total']:.2f}")
-    print("=" * 40)
+    found = False
+    for order_id, order in orders.items():
+        if order.get('system_user') == current_user:
+            found = True
+            print(f"\n=== RECEIPT for {current_user} ===")
+            print(f"Order ID: {order_id}")
+            print(f"Date: {order['timestamp']}")
+            print(f"Type: {order['type']}")
+            if order['type'] == "Dine-In":
+                print(f"Table: {order['table_number']}")
+            print("Items:")
+            total = 0
+            for item in order['cart_contents']:
+                subtotal = item['price'] * item['quantity']
+                total += subtotal
+                remarks = f" (Remarks: {item['remarks']})" if item['remarks'] else ""
+                print(f" - {item['name']} x{item['quantity']} RM{subtotal:.2f}{remarks}")
+            print(f"Total: RM{total:.2f}")
+            print(f"Status: {order['status']}")
+            print(f"Order Remarks: {order.get('remarks', 'None')}")
+    if not found:
+        print("No orders found for you.")

@@ -1,23 +1,25 @@
-from data.menu_data import get_default_menu
-
 def display_menu_by_category(menu, category):
-    menu = get_default_menu()
     print(f"\n=== {category.upper()} ===")
     for item_id, item in menu.items():
-        if item['category'] == category:
-            print(f"\n{item_id}. {item['name']} - RM{item['base_price']:.2f}")
-            if item.get('contents'):
+        if item.get('category') == category:
+            price = item.get('base_price', item.get('price', 0))
+            print(f"\n{item_id}. {item['name']} - RM{price:.2f}")
+
+            if 'contents' in item and item['contents']:
                 print("   Includes:")
                 for content_id, qty in item['contents'].items():
-                    print(f"   - {qty}x {menu[content_id]['name']}")
-            if item.get('ingredients'):
-                print("   Customizable: Yes")
+                    content_name = menu.get(content_id, {}).get('name', 'Unknown')
+                    print(f"   - {qty}x {content_name}")
 
+            if 'ingredients' in item and item['ingredients']:
+                customizable = [ing for ing, det in item['ingredients'].items() if not det.get('default', True)]
+                if customizable:
+                    print("   Customizable: Yes")
 
 def product_browsing(menu):
     while True:
-        print("===========================================")
-        print("===============BROWSE MENU ================")
+        print("\n===========================================")
+        print("=============== BROWSE MENU ===============")
         print("===========================================")
         print("1. Burgers")
         print("2. Sides")
@@ -25,7 +27,7 @@ def product_browsing(menu):
         print("4. Set Meals")
         print("5. Back")
 
-        choice = input("Choose category (1-5): ")
+        choice = input("Choose category (1-5): ").strip()
 
         categories = {
             "1": "Burgers",

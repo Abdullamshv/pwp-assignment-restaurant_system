@@ -9,5 +9,87 @@
         "status": "Pending",
         "type": "Dine-In",
         "discounts": []
+    },
+    "D02": {
+        "system_user": "Brian",
+        "display_name": "Brian",
+        "type": "Dine-In",
+        "table_number": "2",
+        "items": [
+            [
+                "M1",
+                1,
+                ""
+            ]
+        ],
+        "item_details": {
+            "M1": "Family Combo"
+        },
+        "cart_contents": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 85.9,
+                "quantity": 1,
+                "remarks": "",
+                "type": "combo",
+                "contents": {}
+            }
+        ],
+        "timestamp": "2025-06-27 22:11:40",
+        "remarks": "",
+        "status": "Preparing",
+        "customizations": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 85.9,
+                "quantity": 1,
+                "remarks": "",
+                "type": "combo",
+                "contents": {}
+            }
+        ]
+    },
+    "D03": {
+        "system_user": "Brian",
+        "display_name": "Brian",
+        "type": "Dine-In",
+        "table_number": "2",
+        "items": [
+            [
+                "M1",
+                1
+            ]
+        ],
+        "item_details": {
+            "M1": "Family Combo"
+        },
+        "cart_contents": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 85.9,
+                "quantity": 1,
+                "remarks": "",
+                "type": "combo",
+                "contents": {}
+            }
+        ],
+        "total": 85.9,
+        "timestamp": "2025-06-27 22:19:57",
+        "status": "Preparing",
+        "promo_code": null,
+        "customizations": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 85.9,
+                "quantity": 1,
+                "remarks": "",
+                "type": "combo",
+                "contents": {}
+            }
+        ]
     }
 }

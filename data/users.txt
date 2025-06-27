@@ -2,3 +2,4 @@ abdulla:abdulla123:manager
 john:john123:cashier
 alice:alice123:customer
 
+Brian|||Brian123
