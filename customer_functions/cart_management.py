@@ -118,12 +118,59 @@ def customize_item(menu_item, full_menu=None, is_combo_part=False, component_id=
 
     return item
 
+
 def checkout(current_user, cart):
     if not cart:
         print("Cannot checkout - cart is empty!")
         return False
 
     display_cart(cart)
+
+    # === PROMO CODE INPUT ===
+    promo_codes = load_file("promo_codes.txt")
+    promo_code = input("\nEnter promo code (press Enter to skip): ").strip().upper()
+
+    discount_type = None
+    discount_value = 0
+    discount_target = None
+
+    if promo_code:
+        if promo_code in promo_codes:
+            promo = promo_codes[promo_code]
+            discount_type = promo["type"]
+            discount_value = promo["value"]
+            discount_target = promo["apply_to"]
+
+            if discount_target == "total":
+                print(f"Promo applied: {promo['description']}")
+            elif discount_target == "specific_item":
+                item_code = promo.get("item_code")
+                item_found = False
+                for item in cart:
+                    if item['id'] == item_code:
+                        item_found = True
+                        if discount_type == "fixed":
+                            item['price'] = max(0, item['price'] - discount_value)
+                        elif discount_type == "percentage":
+                            item['price'] = round(item['price'] * (1 - discount_value / 100), 2)
+                if item_found:
+                    print(f"Promo applied: {promo['description']}")
+                else:
+                    print("Promo code is valid but item not in cart.")
+        else:
+            print("Invalid promo code.")
+
+    # === CALCULATE TOTAL ===
+    total = sum(item['price'] * item['quantity'] for item in cart)
+
+    # If promo is for total
+    if promo_code and promo_code in promo_codes and discount_target == "total":
+        if discount_type == "fixed":
+            total = max(0, total - discount_value)
+        elif discount_type == "percentage":
+            total = round(total * (1 - discount_value / 100), 2)
+
+    print(f"\nTOTAL after promo: RM{total:.2f}")
 
     customer_name = current_user
     if current_user.startswith("Guest_"):
@@ -144,8 +191,6 @@ def checkout(current_user, cart):
             print("Invalid table number!")
             table_num = input("Enter table number: ").strip()
 
-    remarks = input("Enter order remarks (optional): ").strip()
-
     existing_orders = load_all_orders()
     order_id = "D" + str(len(existing_orders) + 1).zfill(2)
 
@@ -155,12 +200,13 @@ def checkout(current_user, cart):
             "display_name": customer_name,
             "type": "Dine-In" if order_type == "1" else "Takeaway",
             "table_number": table_num,
-            "items": [[item['id'], item['quantity'], item.get('remarks', '')] for item in cart],
+            "items": [[item['id'], item['quantity']] for item in cart],
             "item_details": {item['id']: item['name'] for item in cart},
             "cart_contents": [item for item in cart],
+            "total": total,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "remarks": remarks,
-            "status": "Preparing"
+            "status": "Preparing",
+            "promo_code": promo_code if promo_code in promo_codes else None
         }
     }
 
@@ -170,12 +216,13 @@ def checkout(current_user, cart):
     print(f"Order ID: {order_id}")
     print(f"Customer: {customer_name}")
     print("Items:")
-    for item_id, qty, item_remarks in order_data[order_id]['items']:
-        print(f"  - {item_id} x{qty}" + (f" (Remarks: {item_remarks})" if item_remarks else ""))
-    print(f"Remarks: {remarks if remarks else 'None'}")
+    for item_id, qty in order_data[order_id]['items']:
+        print(f"  - {item_id} x{qty}")
+    print(f"Total after promo: RM{total:.2f}")
 
     save_cart(current_user, [])
     return True
+
 
 def cart_management(current_user, menu):
     menu = load_file("menu_items.txt")

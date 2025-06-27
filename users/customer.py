@@ -29,8 +29,8 @@ def view_promo_codes():
         return
 
     print("\n=== Available Promo Codes ===")
-    for code, discount in promo_codes.items():
-        print(f"- {code}: {discount}% off")
+    for code in promo_codes.keys():
+        print(f"- {code}")
 
 
 def customer_main():
