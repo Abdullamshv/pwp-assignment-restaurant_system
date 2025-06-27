@@ -61,7 +61,7 @@ def save_lines_to_file(filename, lines):
             file.write(line.strip() + "\n")
             
 def view_all_orders():
-    orders_file = os.path.join("data", "orders.txt")
+    orders_file = os.path.join("data", "current_active_orders.txt")
     if not os.path.exists(orders_file):
         print("No orders found.")
         return
@@ -114,24 +114,32 @@ def track_finances():
     dine_in_count = 0
     takeaway_count = 0
     total_discounts = 0
+    promo_codes_used = []
 
-    for order in all_orders.values():
+    for order_id, order in all_orders.items():
         total_revenue += order.get("total", 0)
+
         if order.get("type") == "Dine-In":
             dine_in_count += 1
         elif order.get("type") == "Takeaway":
             takeaway_count += 1
 
-        # Если был применён промокод — показать
-        if "promo_code" in order and order["promo_code"]:
-            original_total = sum(item['price'] * item['quantity'] for item in order.get("cart_contents", []))
-            total_discounts += max(0, original_total - order.get("total", 0))
+        # Суммируем скидки из discounts
+        for discount in order.get("discounts", []):
+            total_discounts += discount.get("amount", 0)
+            if discount.get("promo_code"):
+                promo_codes_used.append(discount["promo_code"])
 
     print("\n=== Financial Summary ===")
     print(f"Total revenue: RM{total_revenue:.2f}")
     print(f"Total dine-in orders: {dine_in_count}")
     print(f"Total takeaway orders: {takeaway_count}")
     print(f"Total discounts given: RM{total_discounts:.2f}")
+
+    if promo_codes_used:
+        print("\nPromo codes used:")
+        for code in promo_codes_used:
+            print(f"- {code}")
 
 def manage_inventory():
     inventory = load_lines_from_file("menu_data.py", default=[])
