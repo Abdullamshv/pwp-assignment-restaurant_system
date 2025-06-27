@@ -22,17 +22,6 @@ def load_initial_data():
     }
 
 
-def view_promo_codes():
-    promo_codes = load_file("promo_codes.txt")
-    if not promo_codes:
-        print("\nNo promo codes available at the moment.")
-        return
-
-    print("\n=== Available Promo Codes ===")
-    for code in promo_codes.keys():
-        print(f"- {code}")
-
-
 def customer_main():
     state = load_initial_data()
     current_orders = {} 
@@ -50,9 +39,8 @@ def customer_main():
         print("3. My Cart")
         print("4. Order Tracking")
         print("5. Dish Reviews")
-        print("6. View Promo Codes")
-        print("7. View My Receipt")
-        print("8. Exit")
+        print("6. View My Receipt")
+        print("7. Exit")
 
         choice = input("\nChoose (1-8): ").strip()
 
@@ -69,13 +57,11 @@ def customer_main():
         elif choice == "5":
             state['current_user'] = dishes_review(state['current_user'])
         elif choice == "6":
-            view_promo_codes()
-        elif choice == "7":
             if state['current_user']:
                 view_receipt(state['current_user'])
             else:
                 print("Please login to view your receipt.")
-        elif choice == "8":
+        elif choice == "7":
             print("Goodbye!")
             break
         else:
