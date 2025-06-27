@@ -1,5 +1,4 @@
 from customer_functions.customer_acc import customer_account_management
-from data.menu_data import get_default_menu
 from customer_functions.product_browsing import product_browsing
 from customer_functions.cart_management import cart_management
 from customer_functions.order_tracking import order_tracking
@@ -12,13 +11,13 @@ import os
 
 def load_initial_data():
     os.makedirs("data", exist_ok=True)
-    for file in ["carts.txt", "customers.txt", "orders.txt", "review.txt"]:
+    for file in ["carts.txt", "orders.txt", "review.txt"]:
         if not os.path.exists(f"data/{file}"):
             open(f"data/{file}", "w").close()
 
     return {
         'current_user': None,
-        'menu': load_file("menu.txt"),
+        'menu': load_file("menu_items.txt"),
         'promo_codes': load_file("promo_codes.txt")
     }
 

@@ -1,4 +1,5 @@
 import os
+import json
 
 def load_lines_from_file(filename, default=[]):
     filepath = os.path.join("data", filename)
@@ -57,11 +58,35 @@ def save_lines_to_file(filename, lines):
         for line in lines:
             file.write(line.strip() + "\n")
             
-def view_orders():
-    orders = load_lines_from_file("orders.txt", default=[])
-    print("\n--- Orders ---")
-    for order in orders:
-        print(order)
+def view_all_orders():
+    path = os.path.join("data", "orders.txt")
+    if not os.path.exists(path):
+        print("No orders yet.")
+        return
+
+    with open(path, "r") as f:
+        try:
+            orders = json.load(f)
+        except json.JSONDecodeError:
+            print("Orders file is empty or corrupted.")
+            return
+
+    if not orders:
+        print("No orders found.")
+        return
+
+    print("\n=== ALL ORDERS ===")
+    for order_id, details in orders.items():
+        print(f"\nOrder ID: {order_id}")
+        print(f"Customer: {details.get('display_name', 'N/A')}")
+        print(f"Type: {details.get('type', 'N/A')}")
+        print(f"Table: {details.get('table_number', '-')}")
+        print(f"Status: {details.get('status', 'N/A')}")
+        print(f"Timestamp: {details.get('timestamp', 'N/A')}")
+        print("Items:")
+        for item in details.get('cart_contents', []):
+            print(f" - {item.get('name', 'Unknown')} x{item.get('quantity', 1)} RM{item.get('price', 0):.2f}")
+        print(f"Remarks: {details.get('remarks', 'None')}")
         
 def track_finances():
     finances = load_lines_from_file("finances.txt", default=[])

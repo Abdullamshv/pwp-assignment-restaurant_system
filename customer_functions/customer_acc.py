@@ -10,7 +10,7 @@ def load_customers():
     except FileNotFoundError:
         import os
         os.makedirs("data", exist_ok=True)
-        with open("data/users.txt", "w"):
+        with open("data/users.txt", "a"):
             pass
     return customers
 
@@ -18,7 +18,7 @@ def load_customers():
 def save_customers(customers):
     import os
     os.makedirs("data", exist_ok=True)
-    with open("data/users.txt", "w") as f:
+    with open("data/users.txt", "a") as f:
         for username, pwd in customers.items():
             f.write(f"{username}|||{pwd}\n")
 
