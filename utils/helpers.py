@@ -21,7 +21,6 @@ def save_to_file(data, file):
         print(f"Error saving file: {e}")
 
 def calculate_custom_price(item_code, item_description, menu_items, order=None):
-    """Calculate price with add-ons"""
     if item_code not in menu_items:
         return 0
     
@@ -113,7 +112,6 @@ def calculate_order_total(order_id, current_orders, menu_items):
     }
 
 def calculate_discount_amount(discount, applicable_amount, existing_discounts=[]):
-    """Helper to calculate discount amount considering existing discounts"""
     remaining_value = applicable_amount - sum(d.get('amount', 0) for d in existing_discounts)
     
     if discount["type"] == "percentage":
@@ -135,6 +133,7 @@ def generate_receipt_lines(order_id, order, payment_method, menu_items):
     if order['type'] == 'Dine-In':
         lines.append(f"Table Number: {order.get('table_number', 'N/A')}")
     lines.append(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    lines.append(f"Payment Method: {payment_method}")
     lines.append("-" * 80)
     
     # Items header
@@ -155,7 +154,7 @@ def generate_receipt_lines(order_id, order, payment_method, menu_items):
             item_name = order["item_details"][item_code]
             price = calculate_custom_price(item_code, order["item_details"][item_code], menu_items, order)
         elif "cart_contents" in order and any(c['id'] == item_code for c in order["cart_contents"]):
-            # For combo items, use the price from item_details if available
+
             customized_desc = next(
                 (c['custom_description'] for c in order["cart_contents"] 
                 if c['id'] == item_code and 'custom_description' in c),

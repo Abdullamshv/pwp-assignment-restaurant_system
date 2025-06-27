@@ -1,1 +1,39 @@
-{}
+{
+    "D01": {
+        "type": "Dine-In",
+        "items": [
+            [
+                "B2",
+                2
+            ]
+        ],
+        "item_details": {},
+        "customizations": [],
+        "cart_contents": [],
+        "discounts": [
+            {
+                "type": "percentage",
+                "value": 1,
+                "amount": 0.2,
+                "description": "1% off total",
+                "apply_to": "total",
+                "promo_code": "TUNGTUNGTUNGSAHUR"
+            },
+            {
+                "type": "fixed",
+                "value": 13.0,
+                "description": "RM13.00 off entire order",
+                "apply_to": "total",
+                "amount": 13.0
+            }
+        ],
+        "subtotal": 20.0,
+        "tax": 0,
+        "total": 6.800000000000001,
+        "payment_method": "Card",
+        "timestamp": "2025-06-26 23:53:38",
+        "system_user": "",
+        "display_name": "",
+        "status": "Completed"
+    }
+}

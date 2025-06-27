@@ -1,8 +1,3 @@
-"""
-display.py
-Functions for displaying menus, promo codes, and order details in a restaurant system.
-"""
-
 from datetime import datetime
 from utils.helpers import calculate_custom_price
 
@@ -127,12 +122,8 @@ def view_order_details(header, order_id, order, menu_items):
     print(f"{'TOTAL:':<68} RM{(taxable_amount + tax):>9.2f}")
     print("=" * 80)
 
-# ==============================================
-# REPORT FUNCTIONS 
-# ==============================================
 
 def daily_sales_report(transactions, menu_items):
-    """Generate a professional daily sales report with perfect alignment."""
     print(f"\n{'=' * 80}")
     print(f"{'DAILY SALES REPORT':^{80}}")
     print(f"{'=' * 80}")
@@ -153,7 +144,6 @@ def daily_sales_report(transactions, menu_items):
     report_data = _calculate_report_data(today_transactions, menu_items)
     
     # Financial summary
-    
     print(f"\n{'-' * 80}")
     print(f"{f' {"Financial Summary"} ':^{80}}")
     print(f"{'-' * 80}")
@@ -164,7 +154,6 @@ def daily_sales_report(transactions, menu_items):
     
     # Payment and order type breakdown
     
-    # Standard count format function
     def format_count(count):
         return f"({count:>8} order{'s' if count != 1 else ' '})"
     
@@ -199,10 +188,7 @@ def daily_sales_report(transactions, menu_items):
     print(f"\n{'=' * 80}")
     print(f"{f'{"Transaction Details"}':^{80}}")
     print(f"{'=' * 80}")
-    
-    # Get column configs['transaction']
-    
-    # Header (using fixed widths from config)
+
     header = (
         f"{'#':<8} "
         f"{'Order ID':<16} "
@@ -213,12 +199,11 @@ def daily_sales_report(transactions, menu_items):
     print(header)
     print("-" * 80)
     
-    transactions_list = list(today_transactions.items())  # Convert to list for indexing
-    # Data rows (using same fixed widths)
+    transactions_list = list(today_transactions.items())  
     for i, (order_id, trans) in enumerate(transactions_list, 1):
         row = (
             f"[{i}]:".ljust(8) + " " +
-            order_id.ljust(16) + " " +  # Use the dictionary key as order_id
+            order_id.ljust(16) + " " +  
             trans['payment_method'].title().ljust(20) + " " +
             trans['type'].replace('-', ' ').title().ljust(16) + " " +
             f"RM{trans['total']:>14.2f}"
@@ -247,14 +232,7 @@ def daily_sales_report(transactions, menu_items):
         except ValueError:
             print("Please enter a valid number or 'done'")
 
-    
-
-# ==============================================
-# HELPER FUNCTIONS
-# =============================================
- 
 def _calculate_report_data(transactions, d):
-    """Calculate all data needed for the sales report."""
     # Payment breakdown
     payment_types = {
         'cash': {'total': 0, 'count': 0},
