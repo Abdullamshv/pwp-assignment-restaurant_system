@@ -67,7 +67,7 @@ def save_order(order_data):
         order_data[order_id]['customizations'] = order_data[order_id]['cart_contents']
     all_orders[order_id] = order_data[order_id]
 
-    with open("data/current_active_orders.tx", "w") as f:
+    with open("data/current_active_orders.txt", "w") as f:
         json.dump(all_orders, f, indent=4)
 
 def display_cart(cart):
