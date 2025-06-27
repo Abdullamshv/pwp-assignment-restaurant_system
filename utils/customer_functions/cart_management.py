@@ -54,7 +54,7 @@ def save_cart(user, cart):
 
 def load_all_orders():
     try:
-        with open("data/orders.txt", "r") as f:
+        with open("data/current_active_orders.txt", "r") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
@@ -67,7 +67,7 @@ def save_order(order_data):
         order_data[order_id]['customizations'] = order_data[order_id]['cart_contents']
     all_orders[order_id] = order_data[order_id]
 
-    with open("data/orders.txt", "w") as f:
+    with open("data/current_active_orders.tx", "w") as f:
         json.dump(all_orders, f, indent=4)
 
 def display_cart(cart):

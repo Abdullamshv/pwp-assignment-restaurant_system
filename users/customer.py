@@ -1,9 +1,9 @@
-from customer_functions.customer_acc import customer_account_management
-from customer_functions.product_browsing import product_browsing
-from customer_functions.cart_management import cart_management
-from customer_functions.order_tracking import order_tracking
-from customer_functions.dishes_review import dishes_review
-from customer_functions.view_receipt import view_receipt
+from utils.customer_functions.customer_acc import customer_account_management
+from utils.customer_functions.product_browsing import product_browsing
+from utils.customer_functions.cart_management import cart_management
+from utils.customer_functions.order_tracking import order_tracking
+from utils.customer_functions.dishes_review import dishes_review
+from utils.customer_functions.view_receipt import view_receipt
 from utils.helpers import load_file
 from utils.display import show_menu
 import os
