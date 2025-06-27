@@ -63,7 +63,7 @@ def save_order(order_data):
 
     all_orders[order_id] = order_data[order_id]
 
-    with open("data/orders.txt", "w") as f:
+    with open("data/current_active_orders.txt", "w") as f:
         json.dump(all_orders, f, indent=4)
 
 
