@@ -10,7 +10,7 @@ import os
 
 def load_initial_data():
     os.makedirs("data", exist_ok=True)
-    for file in ["carts.txt", "current_active_orders.txt", "review.txt"]:
+    for file in ["carts.txt", "current_active_orders.txt","customers.txt" "review.txt"]:
         if not os.path.exists(f"data/{file}"):
             open(f"data/{file}", "w").close()
 
