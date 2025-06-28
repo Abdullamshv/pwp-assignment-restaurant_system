@@ -3,7 +3,6 @@ from utils.customer_functions.product_browsing import product_browsing
 from utils.customer_functions.cart_management import cart_management
 from utils.customer_functions.order_tracking import order_tracking
 from utils.customer_functions.dishes_review import dishes_review
-from utils.customer_functions.view_receipt import view_receipt
 from utils.helpers import load_file
 from utils.display import show_menu
 import os
@@ -37,8 +36,7 @@ def customer_main():
         print("3. My Cart")
         print("4. Order Tracking")
         print("5. Dish Reviews")
-        print("6. View My Receipt")
-        print("7. Exit")
+        print("6. Exit")
 
         choice = input("\nChoose (1-8): ").strip()
 
@@ -55,11 +53,6 @@ def customer_main():
         elif choice == "5":
             state['current_user'] = dishes_review(state['current_user'])
         elif choice == "6":
-            if state['current_user']:
-                view_receipt(state['current_user'])
-            else:
-                print("Please login to view your receipt.")
-        elif choice == "7":
             print("Goodbye!")
             break
         else:
