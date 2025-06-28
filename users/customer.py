@@ -38,7 +38,7 @@ def customer_main():
         print("5. Dish Reviews")
         print("6. Exit")
 
-        choice = input("\nChoose (1-8): ").strip()
+        choice = input("\nChoose (1-6): ").strip()
 
         if choice == "1":
             state['current_user'] = customer_account_management(
