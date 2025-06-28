@@ -1,0 +1,9 @@
+{
+    "Fryer": "Cannot heat up",
+    "Grill": "Left side not heating",
+    "Oven": "Temperature fluctuates randomly",
+    "Microwave": "Display panel not working",
+    "Dishwasher": "Water leaking from bottom",
+    "Refrigerator": "Cooling insufficient",
+    "Freezer": "Ice build-up inside"
+}
