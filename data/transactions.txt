@@ -3,37 +3,88 @@
         "type": "Dine-In",
         "items": [
             [
-                "B2",
-                2
+                "B1",
+                2,
+                "NO"
             ]
         ],
-        "item_details": {},
-        "customizations": [],
-        "cart_contents": [],
-        "discounts": [
+        "item_details": {
+            "B1": "Cheese Burger +Bacon +Avocado"
+        },
+        "customizations": [
             {
-                "type": "percentage",
-                "value": 1,
-                "amount": 0.2,
-                "description": "1% off total",
-                "apply_to": "total",
-                "promo_code": "TUNGTUNGTUNGSAHUR"
-            },
-            {
-                "type": "fixed",
-                "value": 13.0,
-                "description": "RM13.00 off entire order",
-                "apply_to": "total",
-                "amount": 13.0
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "NO",
+                "type": "single",
+                "contents": {}
             }
         ],
-        "subtotal": 20.0,
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "NO",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "discounts": [],
+        "subtotal": 30.0,
         "tax": 0,
-        "total": 6.800000000000001,
-        "payment_method": "Card",
-        "timestamp": "2025-06-26 23:53:38",
-        "system_user": "",
-        "display_name": "",
+        "total": 30.0,
+        "payment_method": "Cash",
+        "timestamp": "2025-06-28 13:35:35",
+        "system_user": "Guest_4593",
+        "display_name": "AS",
+        "status": "Completed"
+    },
+    "T02": {
+        "type": "Takeaway",
+        "items": [
+            [
+                "B1",
+                1,
+                "NO"
+            ]
+        ],
+        "item_details": {
+            "B1": "Cheese Burger +Bacon"
+        },
+        "customizations": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon",
+                "price": 13.5,
+                "quantity": 1,
+                "remarks": "NO",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon",
+                "price": 13.5,
+                "quantity": 1,
+                "remarks": "NO",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "discounts": [],
+        "subtotal": 13.5,
+        "tax": 0,
+        "total": 13.5,
+        "payment_method": "Cash",
+        "timestamp": "2025-06-28 13:34:18",
+        "system_user": "n",
+        "display_name": "n",
         "status": "Completed"
     }
 }

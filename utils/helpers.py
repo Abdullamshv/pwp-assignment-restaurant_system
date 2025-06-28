@@ -20,6 +20,18 @@ def save_to_file(data, file):
     except IOError as e:
         print(f"Error saving file: {e}")
 
+def load_order_counters():
+    try:
+        with open("data/order_counters.txt", "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {"dine_in": 1, "take_away": 1}
+
+def save_order_counters(counters):
+    os.makedirs("data", exist_ok=True)
+    with open("data/order_counters.txt", "w") as f:
+        json.dump(counters, f, indent=4)
+        
 def calculate_custom_price(item_code, item_description, menu_items, order=None):
     if item_code not in menu_items:
         return 0

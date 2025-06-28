@@ -1,0 +1,4 @@
+{
+    "dine_in": 2,
+    "take_away": 3
+}

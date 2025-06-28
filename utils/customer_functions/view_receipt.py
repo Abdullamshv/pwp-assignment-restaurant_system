@@ -1,7 +1,7 @@
 def view_receipt(current_user):
     import json, os
 
-    path = os.path.join("data", "current_active_orders_.txt")
+    path = os.path.join("data", "current_active_orders.txt")
     if not os.path.exists(path):
         print("No orders found.")
         return

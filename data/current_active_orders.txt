@@ -1,1 +1,123 @@
-{}
+{
+    "D02": {
+        "system_user": "Guest_8030",
+        "display_name": "Seah",
+        "type": "Takeaway",
+        "table_number": "",
+        "items": [
+            [
+                "B1",
+                2
+            ]
+        ],
+        "item_details": {
+            "B1": "Cheese Burger +Bacon +Avocado"
+        },
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "no",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "total": 30.0,
+        "timestamp": "2025-06-28 12:44:51",
+        "status": "Preparing",
+        "customizations": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "no",
+                "type": "single",
+                "contents": {}
+            }
+        ]
+    },
+    "D03": {
+        "system_user": "Guest_8030",
+        "display_name": "W",
+        "type": "Dine-In",
+        "table_number": "1",
+        "items": [
+            [
+                "B1",
+                2
+            ]
+        ],
+        "item_details": {
+            "B1": "Cheese Burger +Bacon +Avocado"
+        },
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "total": 30.0,
+        "timestamp": "2025-06-28 12:48:07",
+        "status": "Preparing",
+        "customizations": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "",
+                "type": "single",
+                "contents": {}
+            }
+        ]
+    },
+    "T01": {
+        "system_user": "Guest_4593",
+        "display_name": "seah",
+        "type": "Takeaway",
+        "table_number": "",
+        "items": [
+            [
+                "B2",
+                2,
+                "no eggs"
+            ]
+        ],
+        "item_details": {
+            "B2": "Chicken Burger +Spicy Sauce"
+        },
+        "cart_contents": [
+            {
+                "id": "B2",
+                "name": "Chicken Burger +Spicy Sauce",
+                "price": 10.5,
+                "quantity": 2,
+                "remarks": "no eggs",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "timestamp": "2025-06-28 13:18:34",
+        "remarks": "no spicy pls",
+        "status": "Preparing",
+        "customizations": [
+            {
+                "id": "B2",
+                "name": "Chicken Burger +Spicy Sauce",
+                "price": 10.5,
+                "quantity": 2,
+                "remarks": "no eggs",
+                "type": "single",
+                "contents": {}
+            }
+        ]
+    }
+}

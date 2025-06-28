@@ -2,12 +2,12 @@ import json
 
 def load_orders(username):
     try:
-        with open("data/orders.txt", "r") as f:
+        with open("data/current_active_orders.txt", "r") as f:
             all_orders = json.load(f)
             return {
                 order_id: order
                 for order_id, order in all_orders.items()
-                if order.get("system_user") == username  # Consistent tracking
+                if order.get("system_user") == username  
             }
     except (FileNotFoundError, json.JSONDecodeError):
         return {}

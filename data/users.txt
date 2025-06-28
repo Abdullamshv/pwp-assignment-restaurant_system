@@ -3,3 +3,4 @@ john:john123:cashier
 alice:alice123:customer
 
 Brian|||Brian123
+
