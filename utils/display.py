@@ -145,7 +145,7 @@ def daily_sales_report(transactions, menu_items):
     
     # Financial summary
     print(f"\n{'-' * 80}")
-    print(f"{f' {"Financial Summary"} ':^{80}}")
+    print(f"{'Financial Summary':^{80}}")
     print(f"{'-' * 80}")
 
     print(f"{'Total Discounts Given:':<64}RM{report_data['total_discounts']:>14.2f}")
