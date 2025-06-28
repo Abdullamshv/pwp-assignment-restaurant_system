@@ -26,8 +26,6 @@ def customer_main():
     state = load_initial_data()
     current_orders = {} 
     transactions = []
-    dine_in_counter = 1
-    take_away_counter = 1
     menu_items = load_file('menu_items.txt')
     promo_codes = load_file('promo_codes.txt')
 
