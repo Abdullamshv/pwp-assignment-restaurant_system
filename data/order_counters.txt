@@ -1,4 +1,4 @@
 {
-    "dine_in": 2,
+    "dine_in": 3,
     "take_away": 3
 }

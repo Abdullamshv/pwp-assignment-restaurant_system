@@ -1,41 +1,152 @@
 {
     "D02": {
-        "system_user": "Guest_8030",
-        "display_name": "Seah",
-        "type": "Takeaway",
-        "table_number": "",
+        "system_user": "brian",
+        "display_name": "brian",
+        "type": "Dine-In",
+        "table_number": "12",
         "items": [
             [
-                "B1",
-                2
+                "M1",
+                1,
+                "no onions"
             ]
         ],
         "item_details": {
-            "B1": "Cheese Burger +Bacon +Avocado"
+            "M1": "Family Combo"
         },
         "cart_contents": [
             {
-                "id": "B1",
-                "name": "Cheese Burger +Bacon +Avocado",
-                "price": 15.0,
-                "quantity": 2,
-                "remarks": "no",
-                "type": "single",
-                "contents": {}
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 88.9,
+                "quantity": 1,
+                "remarks": "no onions",
+                "type": "combo",
+                "contents": {
+                    "B1": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B1",
+                                "name": "Cheese Burger +Bacon",
+                                "price": 13.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 2,
+                            "customizations": null
+                        }
+                    ],
+                    "B2": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B2",
+                                "name": "Chicken Burger +Spicy Sauce",
+                                "price": 10.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 1,
+                            "customizations": null
+                        }
+                    ],
+                    "S4": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "S5": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "D1": [
+                        {
+                            "quantity": 5,
+                            "customizations": {
+                                "substituted_id": "D2",
+                                "name": "Sprite",
+                                "price_diff": 0.0
+                            }
+                        }
+                    ]
+                }
             }
         ],
-        "total": 30.0,
-        "timestamp": "2025-06-28 12:44:51",
+        "timestamp": "2025-06-28 14:50:47",
+        "remarks": "no order remarks",
         "status": "Preparing",
         "customizations": [
             {
-                "id": "B1",
-                "name": "Cheese Burger +Bacon +Avocado",
-                "price": 15.0,
-                "quantity": 2,
-                "remarks": "no",
-                "type": "single",
-                "contents": {}
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 88.9,
+                "quantity": 1,
+                "remarks": "no onions",
+                "type": "combo",
+                "contents": {
+                    "B1": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B1",
+                                "name": "Cheese Burger +Bacon",
+                                "price": 13.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 2,
+                            "customizations": null
+                        }
+                    ],
+                    "B2": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B2",
+                                "name": "Chicken Burger +Spicy Sauce",
+                                "price": 10.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 1,
+                            "customizations": null
+                        }
+                    ],
+                    "S4": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "S5": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "D1": [
+                        {
+                            "quantity": 5,
+                            "customizations": {
+                                "substituted_id": "D2",
+                                "name": "Sprite",
+                                "price_diff": 0.0
+                            }
+                        }
+                    ]
+                }
             }
         ]
     },
