@@ -177,7 +177,7 @@ def daily_sales_report(transactions, menu_items):
         return
     
     print(f"\n{'-' * 80}")
-    print(f"{"Top Selling Items"} :^{80}")
+    print(f"{'Top Selling Items' :^80}")
     print(f"{'-' * 80}")
 
     for i, (item_code, qty) in enumerate(report_data['top_items'], 1):
