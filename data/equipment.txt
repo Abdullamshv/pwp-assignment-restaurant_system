@@ -5,6 +5,5 @@
     "Microwave": "Display panel not working",
     "Dishwasher": "Water leaking from bottom",
     "Refrigerator": "Cooling insufficient",
-    "Freezer": "Ice build-up inside",
-    "werfgth": "sdfgh"
+    "Freezer": "Ice build-up inside"
 }
