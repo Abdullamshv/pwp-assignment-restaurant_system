@@ -1,29 +1,24 @@
 {
-    "Cheeseburgers": [
+    "Cheese Burger": [
         "bun",
         "lettuce",
         "cheese",
-        "pickles",
         "tomato",
-        "chicken patty",
-        "ketchup"
+        "beef patty"
     ],
-    "Beef burgers": [
+    "Beef Burger": [
         "bun",
         "lettuce",
         "tomato",
         "beef patty",
-        "onion",
-        "ketchup"
+        "cheese"
     ],
-    "Chicken burgers": [
+    "Chicken Burger": [
         "bun",
-        "lettuce",
-        "tomato",
         "chicken patty",
-        "mayonnaise"
+        "spicy sauce"
     ],
-    "Fish burgers": [
+    "Fish Burger": [
         "bun",
         "lettuce",
         "cheese",
