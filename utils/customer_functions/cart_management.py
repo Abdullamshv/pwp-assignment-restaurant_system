@@ -299,7 +299,7 @@ def checkout(current_user, cart):
             "cart_contents": [item for item in cart],
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "remarks": remarks,
-            "status": "Preparing"
+            "status": "Pending"
         }
     }
 
