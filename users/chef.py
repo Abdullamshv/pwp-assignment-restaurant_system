@@ -202,15 +202,7 @@ def check_inventory():
             not_enough.append((ing, required_qty, available_qty, missing_qty))
      
     # Display results
-    if not_enough:
-        print("\n" + "=" * 50)
-        print(f"Sorry! Cannot prepare {num_servings} serving(s) of '{recipe_name}'.")
-        print("=" * 50)
-        print("Insufficient ingredients:")
-        for item, required, available, missing in not_enough:
-            print(f" • {item}: need {required}, available {available}, missing {missing}")
-        print("=" * 50)
-    else:
+    if not not_enough:
         print("\n" + "=" * 50)
         print(f"'{recipe_name}' can be prepared! ({num_servings} serving(s))")
         print("=" * 50)
@@ -219,7 +211,21 @@ def check_inventory():
             available_qty = inventory_data.get(ing.lower(), 0)
             print(f" • {ing}: need {required_qty}, available {available_qty}")
         print("=" * 50)
-     
+
+        # Automatically deduct inventory
+        for ing, required_qty in required_counts.items():
+            inventory_data[ing.lower()] -= required_qty
+        save_data(INVENTORY_FILE, inventory_data)
+        print("Inventory updated.")
+    else:
+        print("\n" + "=" * 50)
+        print(f"Sorry! Cannot prepare {num_servings} serving(s) of '{recipe_name}'.")
+        print("=" * 50)
+        print("Insufficient ingredients:")
+        for item, required, available, missing in not_enough:
+            print(f" • {item}: need {required}, available {available}, missing {missing}")
+        print("=" * 50)
+
     input("\nPress Enter to return to menu...")
 
 # Helper function for positive integer input
