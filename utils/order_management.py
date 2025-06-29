@@ -236,7 +236,7 @@ def apply_discount_to_specific_item(order_id, current_orders, menu_items, discou
         print("Please try again.")
 
 def apply_promo_code(order_id, current_orders, menu_items, promo_codes):
-    show_promo_codes(promo_codes)
+    show_promo_codes()
     
     promo_code = input("\nEnter promo code (or 'done' to cancel): ").strip().upper()
     if not promo_code:
