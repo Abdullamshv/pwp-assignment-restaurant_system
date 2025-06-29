@@ -11,9 +11,9 @@ sys.path.append(project_root)
 # Define the data directory and file paths
 DATA_DIR = os.path.join(project_root, "data")
 
-RECIPE_FILE = os.path.join(DATA_DIR, "recipe.json")
-INVENTORY_FILE = os.path.join(DATA_DIR, "inventory.json")
-EQUIPMENT_FILE = os.path.join(DATA_DIR, "equipment.json")
+RECIPE_FILE = os.path.join(DATA_DIR, "recipe.txt")
+INVENTORY_FILE = os.path.join(DATA_DIR, "inventory.txt")
+EQUIPMENT_FILE = os.path.join(DATA_DIR, "equipment.txt")
 
 # ==================== Utility Functions ====================
 
