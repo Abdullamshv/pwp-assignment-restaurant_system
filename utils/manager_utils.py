@@ -140,12 +140,6 @@ def track_finances():
         print("\nPromo codes used:")
         for code in promo_codes_used:
             print(f"- {code}")
-
-def manage_inventory():
-    inventory = load_lines_from_file("menu_data.py", default=[])
-    print("\n--- Inventory (Menu Items) ---")
-    for item in inventory:
-        print(item)
         
 def view_customer_feedback():
     feedback = load_lines_from_file("review.txt", default=[])

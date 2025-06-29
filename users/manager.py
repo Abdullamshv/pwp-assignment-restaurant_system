@@ -3,11 +3,11 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from utils.manager_utils import manage_user_accounts
-from utils.manager_utils import manage_inventory
 from utils.manager_utils import view_all_orders
 from utils.manager_utils import view_customer_feedback
 from utils.manager_utils import track_finances
 from utils.manager_utils import manage_promo_codes
+from .chef import  check_inventory
 
 
 def clear():
@@ -34,7 +34,7 @@ def manager_menu():
         elif choice == "3":
             track_finances()
         elif choice == "4":
-            manage_inventory()
+            check_inventory()
         elif choice == "5":
             view_customer_feedback()
         elif choice == "6":
