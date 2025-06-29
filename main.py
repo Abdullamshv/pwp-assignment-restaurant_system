@@ -2,8 +2,10 @@ import os
 from users.cashier import cashier_menu
 from users.manager import manager_menu
 from users.customer import customer_main
+from users.chef import chef_menu
 
 ACCOUNTS_FILE = "data/users.txt"
+
 
 def load_accounts():
     accounts = {}
@@ -42,7 +44,8 @@ def main_menu():
         print("1. Cashier")
         print("2. Manager")
         print("3. Customer")
-        print("4. Exit")
+        print("4.Chef")
+        print("5. Exit")
 
         choice = input("Choose role (1-4): ").strip()
 
@@ -54,8 +57,10 @@ def main_menu():
                 manager_menu()
         elif choice == "3":
             customer_main()
-
         elif choice == "4":
+            chef_menu()
+
+        elif choice == "5":
             print("👋 Exiting system.")
             break
         else:
