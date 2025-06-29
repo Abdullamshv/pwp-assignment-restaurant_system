@@ -1,42 +1,42 @@
 {
     "Cheeseburgers": [
-        "Bun",
-        "Lettuce",
-        "Cheese",
-        "Pickles",
-        "Tomato",
-        "Chicken Patty",
-        "Ketchup"
+        "bun",
+        "lettuce",
+        "cheese",
+        "pickles",
+        "tomato",
+        "chicken patty",
+        "ketchup"
     ],
     "Beef burgers": [
-        "Bun",
-        "Lettuce",
-        "Tomato",
-        "Beef Patty",
-        "Onion",
-        "Ketchup"
+        "bun",
+        "lettuce",
+        "tomato",
+        "beef patty",
+        "onion",
+        "ketchup"
     ],
     "Chicken burgers": [
-        "Bun",
-        "Lettuce",
-        "Tomato",
-        "Chicken Patty",
-        "Mayonnaise"
+        "bun",
+        "lettuce",
+        "tomato",
+        "chicken patty",
+        "mayonnaise"
     ],
     "Fish burgers": [
-        "Bun",
-        "Lettuce",
-        "Cheese",
-        "Tartar Sauce",
-        "Fish Patty"
+        "bun",
+        "lettuce",
+        "cheese",
+        "tartar sauce",
+        "fish patty"
     ],
     "Nugget": [
-        "Chicken Nugget"
+        "chicken nugget"
     ],
     "French Fries": [
-        "French Fries"
+        "french fries"
     ],
     "Chicken Tender": [
-        "Chicken Tender"
+        "chicken tender"
     ]
 }
