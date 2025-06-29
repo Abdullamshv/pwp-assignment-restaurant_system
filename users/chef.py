@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-
+from utils.order_management import chef_view_active_orders
 # Ensure the parent directory is in the path for module imports
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
@@ -10,7 +10,6 @@ sys.path.append(project_root)
 
 # Define the data directory and file paths
 DATA_DIR = os.path.join(project_root, "data")
-
 RECIPE_FILE = os.path.join(DATA_DIR, "recipe.txt")
 INVENTORY_FILE = os.path.join(DATA_DIR, "inventory.txt")
 EQUIPMENT_FILE = os.path.join(DATA_DIR, "equipment.txt")
@@ -281,7 +280,8 @@ def chef_menu():
         print("1. Manage Recipes")
         print("2. Check Inventory")
         print("3. Report Equipment Issue")
-        print("4. Exit")
+        print("4. View Active Orders")
+        print("5. Exit")
         choice = input("Choose (1–4): ").strip()
         if choice == "1":
             manage_recipes()
@@ -290,6 +290,8 @@ def chef_menu():
         elif choice == "3":
             report_equipment_issue()
         elif choice == "4":
+            chef_view_active_orders()
+        elif choice == "5":
             break
         else:
             print("Invalid choice. Please try again.")

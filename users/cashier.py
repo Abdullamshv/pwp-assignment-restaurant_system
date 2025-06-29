@@ -1,13 +1,8 @@
 from utils.order_management import view_active_orders
 from utils.display import show_menu, show_promo_codes, daily_sales_report
-from utils.helpers import load_file
 
 def cashier_menu():
     while True:
-        current_orders = load_file('current_active_orders.txt')
-        transactions = load_file('transactions.txt')
-        menu_items = load_file('menu_items.txt')
-        promo_codes = load_file('promo_codes.txt')
 
         print("\n=== Cashier Menu ===")
         print("1. Current Active Orders")
@@ -19,17 +14,17 @@ def cashier_menu():
         choice = input("Select an option: ").strip()
 
         if choice == '1':
-            view_active_orders(current_orders, menu_items, transactions)
+            view_active_orders()
 
         elif choice == '2':
-            daily_sales_report(transactions, menu_items)
+            daily_sales_report()
 
         elif choice == '3':
-            show_menu(menu_items)
+            show_menu()
             input("\nPress Enter to return to main menu...")
 
         elif choice == '4':
-            show_promo_codes(promo_codes)
+            show_promo_codes()
             input("\nPress Enter to return to main menu...")
             
         elif choice == '5':

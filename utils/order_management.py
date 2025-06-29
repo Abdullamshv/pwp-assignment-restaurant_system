@@ -564,7 +564,10 @@ def handle_order_actions(order_id, order, current_orders, menu_items, transactio
         else:
             print("Invalid choice!")
 
-def view_active_orders(current_orders, menu_items, transactions):
+def view_active_orders():
+    menu_items = load_file('menu_items.txt')
+    current_orders = load_file('current_active_orders.txt')
+    transactions = load_file('transactions.txt')
     while True:
 
         if not current_orders:
@@ -602,3 +605,68 @@ def view_active_orders(current_orders, menu_items, transactions):
             print("4 Please enter a valid number!")
 
 
+def handle_order_status(order_id, order, current_orders):
+    current_status = order.get('status', 'Pending')
+    print(f"\nCurrent status for Order {order_id}: {current_status}")
+    print("Select New Status:")
+    print("1. Preparing")
+    print("2. Served")
+    print("3. Pending")
+    print("4. Back")
+    
+    status_choice = input("\nEnter Choice: ").strip()
+    
+    if status_choice == "1":
+        current_orders[order_id]['status'] = "Preparing"
+        save_to_file(current_orders, "current_active_orders.txt")
+        print(f"Order {order_id} status updated to Preparing.")
+    elif status_choice == "2":
+        current_orders[order_id]['status'] = "Served"
+        save_to_file(current_orders, "current_active_orders.txt")
+        print(f"Order {order_id} status updated to Served.")
+    elif status_choice == "3":
+        current_orders[order_id]['status'] = "Pending"
+        save_to_file(current_orders, "current_active_orders.txt")
+        print(f"Order {order_id} status updated to Pending.")
+    elif status_choice == "4":
+        return
+    else:
+        print("Invalid choice!")
+
+def chef_view_active_orders():
+    current_orders = load_file('current_active_orders.txt')
+    menu_items = load_file('menu_items.txt')
+    
+    if not current_orders:
+        print("\nNo active orders.")
+        return
+
+    while True:
+        print("\n" + "="*80)
+        print("Active Orders".center(80))
+        print("="*80)
+
+        orders_list = list(current_orders.items())
+        for idx, (oid, order) in enumerate(orders_list, 1):
+            status = order.get('status', '[Pending]')
+            line = f"[{idx}]: {oid:12}"
+            status_str = f"Status: {status}"
+            print(f"{line}{status_str:>{80 - len(line)}}")
+            print("-" * 80)
+        print("="*80)
+
+        choice = input("\nSelect Order Number to View Details or 'done' to Return: ").strip().lower()
+        
+        if choice == "done":
+            break
+            
+        try:
+            idx = int(choice) - 1
+            if 0 <= idx < len(orders_list):
+                oid, order = orders_list[idx]
+                view_order_details("Order Details", oid, order, menu_items)
+                handle_order_status(oid, order, current_orders)
+            else:
+                print("Invalid order number!")
+        except ValueError:
+            print("Please enter a valid number or command!")

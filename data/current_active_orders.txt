@@ -26,7 +26,7 @@
         ],
         "total": 30.0,
         "timestamp": "2025-06-28 12:48:07",
-        "status": "Preparing",
+        "status": "Pending",
         "customizations": [
             {
                 "id": "B1",
@@ -67,7 +67,7 @@
         ],
         "timestamp": "2025-06-28 13:18:34",
         "remarks": "no spicy pls",
-        "status": "Preparing",
+        "status": "Pending",
         "customizations": [
             {
                 "id": "B2",
