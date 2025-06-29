@@ -1,7 +1,7 @@
 abdulla:abdulla123:manager
 john:john123:cashier
 alice:alice123:customer
-
+kelly:kelly123:chef
 Brian|||Brian123
 
 Brian|||Brian123
