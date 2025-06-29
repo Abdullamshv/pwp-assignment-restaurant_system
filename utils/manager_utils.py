@@ -98,7 +98,7 @@ def view_all_orders():
         print(f"Status: {order.get('status')}")
         
 def track_finances():
-    orders_file = os.path.join("data", "orders.txt")
+    orders_file = os.path.join("data", "current_active_orders.txt")
     if not os.path.exists(orders_file):
         print("No orders found.")
         return

@@ -1,0 +1,29 @@
+================================================================================
+                                    RECEIPT                                     
+================================================================================
+Order ID: D02
+Type: Dine-In
+Customer: brian
+Table Number: 12
+Date: 2025-06-29 13:55:32
+Payment Method: Cash
+--------------------------------------------------------------------------------
+Item                                             Qty          Price      Total
+--------------------------------------------------------------------------------
+Family Combo                                      x1     RM    88.90 RM    88.90
+  Remark: no onions
+  Combo Contents:                            
+    - Cheese Burger +Bacon x1
+    - Cheese Burger x2
+    - Chicken Burger +Spicy Sauce x1
+    - Chicken Burger x1
+    - Nugget (9 Pcs) x1
+    - Chicken Tender x1
+    - Sprite x5
+
+Order Remarks: no order remarks
+================================================================================
+Subtotal:                                                            RM    88.90
+Tax (6%):                                                            RM     5.33
+TOTAL:                                                               RM    94.23
+================================================================================

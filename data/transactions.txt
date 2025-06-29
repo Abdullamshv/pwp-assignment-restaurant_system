@@ -86,5 +86,159 @@
         "system_user": "n",
         "display_name": "n",
         "status": "Completed"
+    },
+    "D02": {
+        "type": "Dine-In",
+        "items": [
+            [
+                "M1",
+                1,
+                "no onions"
+            ]
+        ],
+        "item_details": {
+            "M1": "Family Combo"
+        },
+        "customizations": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 88.9,
+                "quantity": 1,
+                "remarks": "no onions",
+                "type": "combo",
+                "contents": {
+                    "B1": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B1",
+                                "name": "Cheese Burger +Bacon",
+                                "price": 13.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 2,
+                            "customizations": null
+                        }
+                    ],
+                    "B2": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B2",
+                                "name": "Chicken Burger +Spicy Sauce",
+                                "price": 10.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 1,
+                            "customizations": null
+                        }
+                    ],
+                    "S4": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "S5": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "D1": [
+                        {
+                            "quantity": 5,
+                            "customizations": {
+                                "substituted_id": "D2",
+                                "name": "Sprite",
+                                "price_diff": 0.0
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "cart_contents": [
+            {
+                "id": "M1",
+                "name": "Family Combo",
+                "price": 88.9,
+                "quantity": 1,
+                "remarks": "no onions",
+                "type": "combo",
+                "contents": {
+                    "B1": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B1",
+                                "name": "Cheese Burger +Bacon",
+                                "price": 13.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 2,
+                            "customizations": null
+                        }
+                    ],
+                    "B2": [
+                        {
+                            "quantity": 1,
+                            "customizations": {
+                                "id": "B2",
+                                "name": "Chicken Burger +Spicy Sauce",
+                                "price": 10.5,
+                                "quantity": 1,
+                                "remarks": "",
+                                "type": "single",
+                                "contents": {}
+                            }
+                        },
+                        {
+                            "quantity": 1,
+                            "customizations": null
+                        }
+                    ],
+                    "S4": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "S5": {
+                        "quantity": 1,
+                        "customizations": null
+                    },
+                    "D1": [
+                        {
+                            "quantity": 5,
+                            "customizations": {
+                                "substituted_id": "D2",
+                                "name": "Sprite",
+                                "price_diff": 0.0
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "discounts": [],
+        "subtotal": 85.9,
+        "tax": 0,
+        "total": 85.9,
+        "payment_method": "Cash",
+        "timestamp": "2025-06-29 13:55:32",
+        "system_user": "brian",
+        "display_name": "brian",
+        "status": "Completed"
     }
 }

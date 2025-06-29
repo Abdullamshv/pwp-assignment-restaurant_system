@@ -15,7 +15,7 @@
     },
     "FISHFRIDAY": {
         "type": "fixed",
-        "value": 1.50,
+        "value": 1.5,
         "description": "RM1.50 off Fish Burger",
         "apply_to": "specific_item",
         "item_code": "B3"
@@ -50,7 +50,7 @@
     },
     "COKEDEAL": {
         "type": "fixed",
-        "value": 0.50,
+        "value": 0.5,
         "description": "RM0.50 off Cherry Coke",
         "apply_to": "specific_item",
         "item_code": "D1"
