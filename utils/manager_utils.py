@@ -147,7 +147,6 @@ def view_customer_feedback():
     for review in feedback:
         print(review)
 
-
 def load_promos():
     try:
         with open(PROMO_FILE, "r") as f:
