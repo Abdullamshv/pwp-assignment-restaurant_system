@@ -42,17 +42,20 @@ def input_non_empty(prompt):
     return value
 
 def input_positive_int(prompt):
-    """Prompt until a valid positive integer is given."""
-    num = None
-    while num is None:
+    """Get a positive integer from user input with validation."""
+    while True:
+        user_input = input(prompt).strip()
+        if not user_input:
+            print("Input cannot be empty!")
+            continue
         try:
-            num = int(input(prompt).strip())
-            if num <= 0:
-                print("Please enter a number greater than 0!")
-                num = None
+            value = int(user_input)
+            if value > 0:
+                return value
+            else:
+                print("Please enter a positive number!")
         except ValueError:
             print("Please enter a valid number!")
-    return num
 
 # ==================== Load Data ====================
 
@@ -228,19 +231,6 @@ def check_inventory():
 
     input("\nPress Enter to return to menu...")
 
-# Helper function for positive integer input
-def input_positive_int(prompt):
-    """Get a positive integer from user input with validation."""
-    while True:
-        try:
-            value = int(input(prompt))
-            if value > 0:
-                return value
-            else:
-                print("Please enter a positive number!")
-        except ValueError:
-            print("Please enter a valid number!")
-
 # ==================== Equipment Issues ====================
 
 def report_equipment_issue():
@@ -289,7 +279,7 @@ def chef_menu():
         print("3. Report Equipment Issue")
         print("4. View Active Orders")
         print("5. Exit")
-        choice = input("Choose (1–4): ").strip()
+        choice = input("Choose (1–5): ").strip()
         if choice == "1":
             manage_recipes()
         elif choice == "2":
