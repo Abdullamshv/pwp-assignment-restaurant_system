@@ -2,21 +2,17 @@ from datetime import datetime
 from utils.helpers import calculate_custom_price
 from utils.helpers import load_file
 
-def show_menu():
-    menu_items = load_file('menu_items.txt')
-
+def show_menu(menu_items):
     print(f"\n{'=' * 80}")
     print(f"{'MENU':^{80}}")
     print(f"{'=' * 80}")
-    print(f"{'Code':<6} | {'Name':<30} | {'Price':<9} | {'Category':<11} | {'Availability':>9}")
+    print(f"{'Code':<6} | {'Name':<30} | {'Price':<15} | {'Category':<11}")
     print("-" * 80)
     for code, item in menu_items.items():
-        print(f"{code:<6} | {item['name']:<30} | RM{item['price']:>7.2f} | {item['category']:<11} | {item['availability']:>9}")
+        print(f"{code:<6} | {item['name']:<30} | RM{item['price']:>13.2f} | {item['category']:<11}")
     print("=" * 80)
 
-def show_promo_codes():
-    promo_codes = load_file('promo_codes.txt')
-
+def show_promo_codes(promo_codes):
     print(f"\n{'=' * 80}")
     print(f"{'PROMO CODES':^{80}}")
     print(f"{'=' * 80}")
@@ -128,9 +124,7 @@ def view_order_details(header, order_id, order, menu_items):
     print("=" * 80)
 
 
-def daily_sales_report():
-    menu_items = load_file('menu_items.txt')
-    transactions = load_file('transactions.txt')
+def daily_sales_report(transactions, menu_items):
     print(f"\n{'=' * 80}")
     print(f"{'DAILY SALES REPORT':^{80}}")
     print(f"{'=' * 80}")

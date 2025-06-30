@@ -564,10 +564,7 @@ def handle_order_actions(order_id, order, current_orders, menu_items, transactio
         else:
             print("Invalid choice!")
 
-def view_active_orders():
-    menu_items = load_file('menu_items.txt')
-    current_orders = load_file('current_active_orders.txt')
-    transactions = load_file('transactions.txt')
+def view_active_orders(menu_items, current_orders, transactions):
     while True:
 
         if not current_orders:
