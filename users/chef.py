@@ -11,14 +11,14 @@ from utils.order_management import chef_view_active_orders
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
 
-# ==================== Constant file names ====================
+# Constant file names
 
 DATA_DIR = os.path.join(project_root, "data")
 RECIPE_FILE = os.path.join(DATA_DIR, "recipe.txt")
 INVENTORY_FILE = os.path.join(DATA_DIR, "inventory.txt")
 EQUIPMENT_FILE = os.path.join(DATA_DIR, "equipment.txt")
 
-# ==================== Utility Functions ====================
+# Utility Functions    
 
 def load_data(file_path):
     if not os.path.exists(file_path):
@@ -68,7 +68,7 @@ def save_all_data(recipe_data, inventory_data, equipment_data):
     save_data(INVENTORY_FILE, inventory_data)
     save_data(EQUIPMENT_FILE, equipment_data)
 
-# ==================== Recipe Functions ====================
+# Recipe Functions 
 
 def view_recipe(recipe_data):
     print("\n" + "-" * 80)
@@ -120,7 +120,7 @@ def update_recipe(recipe_data):
 
     recipe_name = list(recipe_data.keys())[choice-1]
     new_ingredients = input_non_empty(f"Enter new ingredients for '{recipe_name}': ").split(",")
-    recipe_data[recipe_name] = [i.strip().lower() for i in new_ingredients]
+    recipe_data[recipe_name] = [i.strip().lower() for i in new_ingredients] # Remove empty strings and convert ingredients to lowercase
     print(f"Updated recipe '{recipe_name}'.")
     input("\nPress Enter to return to menu...")
     return recipe_data
@@ -147,7 +147,7 @@ def delete_recipe(recipe_data):
     input("\nPress Enter to return to menu...")
     return recipe_data
 
-# ==================== Inventory Check ====================
+# Inventory Check 
 
 def check_inventory(recipe_data, inventory_data):
     if not recipe_data:
@@ -204,7 +204,7 @@ def check_inventory(recipe_data, inventory_data):
     input("\nPress Enter to return to menu...")
     return recipe_data, inventory_data
 
-# ==================== Equipment Issues ====================
+# Equipment Issues 
 
 def report_equipment_issue(equipment_data):
     name = input_non_empty("Enter equipment name: ")
@@ -214,7 +214,7 @@ def report_equipment_issue(equipment_data):
     input("\nPress Enter to return to menu...")
     return equipment_data
 
-# ==================== Menus ====================
+# Manage recipe functions 
 
 def manage_recipes(recipe_data):
     while True:
@@ -239,6 +239,8 @@ def manage_recipes(recipe_data):
             print("Invalid choice. Please try again.")
     return recipe_data
 
+# Chef Menu
+
 def chef_menu(recipe_data, inventory_data, equipment_data):
     while True:
         print("\nChef Menu:")
@@ -262,7 +264,7 @@ def chef_menu(recipe_data, inventory_data, equipment_data):
             print("Invalid choice. Please try again.")
     return recipe_data, inventory_data, equipment_data
 
-# ==================== Main ====================
+# Main
 
 if __name__ == "__main__":
     recipe_data, inventory_data, equipment_data = load_all_data()
