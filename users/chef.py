@@ -271,9 +271,7 @@ def chef_menu():
 
 if __name__ == "__main__":
     recipe_data, inventory_data, equipment_data = load_all_data()
-    recipe_data, inventory_data, equipment_data = chef_menu(
-        recipe_data, inventory_data, equipment_data
-    )
+    recipe_data, inventory_data, equipment_data = chef_menu()
     save_all_data(recipe_data, inventory_data, equipment_data)
 
 
