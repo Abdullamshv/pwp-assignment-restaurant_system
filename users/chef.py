@@ -56,13 +56,6 @@ def input_positive_int(prompt):
         except ValueError:
             print("Please enter a valid number!")
 
-def load_all_data():
-    recipe_data = load_data(RECIPE_FILE)
-    inventory_data = load_data(INVENTORY_FILE)
-    equipment_data = load_data(EQUIPMENT_FILE)
-    inventory_data = {k.lower(): v for k, v in inventory_data.items()}
-    return recipe_data, inventory_data, equipment_data
-
 def save_all_data(recipe_data, inventory_data, equipment_data):
     save_data(RECIPE_FILE, recipe_data)
     save_data(INVENTORY_FILE, inventory_data)
@@ -244,6 +237,7 @@ def manage_recipes(recipe_data):
 def chef_menu():
     recipe_data = load_data(RECIPE_FILE)
     inventory_data = load_data(INVENTORY_FILE)
+    inventory_data = {k.lower(): v for k, v in inventory_data.items()}
     equipment_data = load_data(EQUIPMENT_FILE)
     while True:
         print("\nChef Menu:")
@@ -270,7 +264,6 @@ def chef_menu():
 # Main
 
 if __name__ == "__main__":
-    recipe_data, inventory_data, equipment_data = load_all_data()
     recipe_data, inventory_data, equipment_data = chef_menu()
     save_all_data(recipe_data, inventory_data, equipment_data)
 
