@@ -91,6 +91,7 @@ def add_recipe(recipe_data):
     recipe_name = input_non_empty("Enter recipe name: ")
     ingredients = input_non_empty("Enter ingredients (comma separated): ").split(",")
     recipe_data[recipe_name] = [i.strip().lower() for i in ingredients]
+    save_data(RECIPE_FILE, recipe_data)
     print(f"Recipe '{recipe_name}' added!")
     input("\nPress Enter to return to menu...")
     return recipe_data
@@ -114,6 +115,7 @@ def update_recipe(recipe_data):
     recipe_name = list(recipe_data.keys())[choice-1]
     new_ingredients = input_non_empty(f"Enter new ingredients for '{recipe_name}': ").split(",")
     recipe_data[recipe_name] = [i.strip().lower() for i in new_ingredients] # Remove empty strings and convert ingredients to lowercase
+    save_data(RECIPE_FILE, recipe_data)
     print(f"Updated recipe '{recipe_name}'.")
     input("\nPress Enter to return to menu...")
     return recipe_data
@@ -136,6 +138,7 @@ def delete_recipe(recipe_data):
 
     recipe_name = list(recipe_data.keys())[choice-1]
     del recipe_data[recipe_name]
+    save_data(RECIPE_FILE, recipe_data)
     print(f"Deleted recipe '{recipe_name}'.")
     input("\nPress Enter to return to menu...")
     return recipe_data
@@ -184,6 +187,7 @@ def check_inventory(recipe_data, inventory_data):
 
         for ing, required_qty in required_counts.items():
             inventory_data[ing.lower()] -= required_qty
+        save_data(INVENTORY_FILE, inventory_data)
         print("Inventory updated.")
     else:
         print("\n" + "=" * 50)
@@ -203,6 +207,7 @@ def report_equipment_issue(equipment_data):
     name = input_non_empty("Enter equipment name: ")
     issue = input_non_empty("Describe issue: ")
     equipment_data[name] = issue
+    save_data(EQUIPMENT_FILE, equipment_data)
     print(f"Issue for '{name}' recorded!")
     input("\nPress Enter to return to menu...")
     return equipment_data
@@ -266,5 +271,3 @@ def chef_menu():
 if __name__ == "__main__":
     recipe_data, inventory_data, equipment_data = chef_menu()
     save_all_data(recipe_data, inventory_data, equipment_data)
-
-
