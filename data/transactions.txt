@@ -240,5 +240,64 @@
         "system_user": "brian",
         "display_name": "brian",
         "status": "Completed"
+    },
+    "D03": {
+        "type": "Dine-In",
+        "items": [
+            [
+                "B1",
+                2
+            ]
+        ],
+        "item_details": {
+            "B1": "Cheese Burger +Bacon +Avocado"
+        },
+        "customizations": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon +Avocado",
+                "price": 15.0,
+                "quantity": 2,
+                "remarks": "",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "discounts": [
+            {
+                "type": "percentage",
+                "value": 20.0,
+                "description": "20.0% off entire order",
+                "apply_to": "total",
+                "amount": 6.0
+            },
+            {
+                "type": "fixed",
+                "value": 2.4,
+                "description": "RM2.40 off on Cheese Burger +Bacon +Avocado",
+                "apply_to": "specific_item",
+                "item_code": "B1",
+                "amount": 2.4
+            }
+        ],
+        "subtotal": 30.0,
+        "tax": 0,
+        "total": 21.6,
+        "payment_method": "Card",
+        "timestamp": "2025-06-30 16:15:04",
+        "system_user": "Guest_8030",
+        "display_name": "W",
+        "status": "Completed"
     }
 }

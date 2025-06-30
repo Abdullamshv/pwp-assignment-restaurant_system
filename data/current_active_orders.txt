@@ -1,44 +1,4 @@
 {
-    "D03": {
-        "system_user": "Guest_8030",
-        "display_name": "W",
-        "type": "Dine-In",
-        "table_number": "1",
-        "items": [
-            [
-                "B1",
-                2
-            ]
-        ],
-        "item_details": {
-            "B1": "Cheese Burger +Bacon +Avocado"
-        },
-        "cart_contents": [
-            {
-                "id": "B1",
-                "name": "Cheese Burger +Bacon +Avocado",
-                "price": 15.0,
-                "quantity": 2,
-                "remarks": "",
-                "type": "single",
-                "contents": {}
-            }
-        ],
-        "total": 30.0,
-        "timestamp": "2025-06-28 12:48:07",
-        "status": "Pending",
-        "customizations": [
-            {
-                "id": "B1",
-                "name": "Cheese Burger +Bacon +Avocado",
-                "price": 15.0,
-                "quantity": 2,
-                "remarks": "",
-                "type": "single",
-                "contents": {}
-            }
-        ]
-    },
     "T01": {
         "system_user": "Guest_4593",
         "display_name": "seah",
@@ -75,6 +35,47 @@
                 "price": 10.5,
                 "quantity": 2,
                 "remarks": "no eggs",
+                "type": "single",
+                "contents": {}
+            }
+        ]
+    },
+    "D03": {
+        "system_user": "Guest_4480",
+        "display_name": "seah",
+        "type": "Dine-In",
+        "table_number": "2",
+        "items": [
+            [
+                "B1",
+                2,
+                ""
+            ]
+        ],
+        "item_details": {
+            "B1": "Cheese Burger +Bacon"
+        },
+        "cart_contents": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon",
+                "price": 13.5,
+                "quantity": 2,
+                "remarks": "",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "timestamp": "2025-06-30 16:16:31",
+        "remarks": "",
+        "status": "Pending",
+        "customizations": [
+            {
+                "id": "B1",
+                "name": "Cheese Burger +Bacon",
+                "price": 13.5,
+                "quantity": 2,
+                "remarks": "",
                 "type": "single",
                 "contents": {}
             }
