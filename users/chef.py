@@ -241,7 +241,10 @@ def manage_recipes(recipe_data):
 
 # Chef Menu
 
-def chef_menu(recipe_data, inventory_data, equipment_data):
+def chef_menu():
+    recipe_data = load_data(RECIPE_FILE)
+    inventory_data = load_data(INVENTORY_FILE)
+    equipment_data = load_data(EQUIPMENT_FILE)
     while True:
         print("\nChef Menu:")
         print("1. Manage Recipes")
