@@ -4,9 +4,13 @@ def load_customers():
         with open("data/users.txt", "r") as f:
             for line in f:
                 line = line.strip()
-                if line and "|||" in line:
-                    username, pwd = line.split("|||", 1)
-                    customers[username] = pwd
+                if not line or ":" not in line:
+                    continue
+                parts = line.split(":", 2)
+                if len(parts) != 3:
+                    continue
+                username, pwd, role = parts
+                customers[username] = {"password": pwd, "role": role}
     except FileNotFoundError:
         import os
         os.makedirs("data", exist_ok=True)
@@ -18,9 +22,9 @@ def load_customers():
 def save_customers(customers):
     import os
     os.makedirs("data", exist_ok=True)
-    with open("data/users.txt", "a") as f:
-        for username, pwd in customers.items():
-            f.write(f"{username}|||{pwd}\n")
+    with open("data/users.txt", "w") as f:
+        for username, data in customers.items():
+            f.write(f"{username}:{data['password']}:{data['role']}\n")
 
 
 def customer_account_management(current_user):
@@ -57,7 +61,8 @@ def customer_account_management(current_user):
                 print("Password cannot contain spaces!")
                 continue
 
-            customers[username] = password
+            # Всегда регистрируем как customer
+            customers[username] = {"password": password, "role": "customer"}
             save_customers(customers)
             print("Registration successful!")
             return username
@@ -70,7 +75,7 @@ def customer_account_management(current_user):
             username = input("Username: ").strip()
             password = input("Password: ").strip()
 
-            if username in customers and customers[username] == password:
+            if username in customers and customers[username]["password"] == password:
                 print("Login successful!")
                 return username
             else:

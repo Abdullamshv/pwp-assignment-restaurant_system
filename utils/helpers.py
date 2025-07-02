@@ -5,7 +5,10 @@ from datetime import datetime
 def load_file(file):
     try:
         with open(os.path.join("data", file), "r") as f:
-            return json.load(f)
+            content = f.read().strip()
+            if not content:
+                return {}
+            return json.loads(content)
     except FileNotFoundError:
         print(f"Error: {file} not found.")
         return {}

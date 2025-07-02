@@ -10,13 +10,32 @@ def load_lines_from_file(filename, default=[]):
     with open(filepath, "r", encoding="utf-8") as file:
         return [line.strip() for line in file.readlines() if line.strip()]
 
+def load_users():
+    filepath = os.path.join("data", "users.txt")
+    users = []
+    if not os.path.exists(filepath):
+        return users
+    with open(filepath, "r", encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+            if line and ":" in line:
+                username, password, role = line.split(":", 2)
+                users.append({"username": username, "password": password, "role": role})
+    return users
+
+def save_users(users):
+    filepath = os.path.join("data", "users.txt")
+    with open(filepath, "w", encoding="utf-8") as file:
+        for user in users:
+            file.write(f"{user['username']}:{user['password']}:{user['role']}\n")
+
 def manage_user_accounts():
     while True:
-        users = load_lines_from_file("users.txt", default=[])
+        users = load_users()
         print("\n--- User Accounts ---")
         if users:
             for i, user in enumerate(users, 1):
-                print(f"{i}. {user}")
+                print(f"{i}. {user['username']} ({user['role']})")
         else:
             print("No users found.")
 
@@ -28,21 +47,26 @@ def manage_user_accounts():
         choice = input("Choose an option (1-3): ").strip()
 
         if choice == "1":
-            new_user = input("Enter new user info (e.g. username,password,role): ").strip()
-            if new_user:
-                users.append(new_user)
-                save_lines_to_file("users.txt", users)
-                print("User added successfully.")
-            else:
-                print("User info cannot be empty.")
+            username = input("Enter username: ").strip()
+            password = input("Enter password: ").strip()
+            role = input("Enter role (manager/cashier/chef/customer): ").strip().lower()
+            if not username or not password or not role:
+                print("All fields are required.")
+                continue
+            if any(u['username'] == username for u in users):
+                print("Username already exists.")
+                continue
+            users.append({"username": username, "password": password, "role": role})
+            save_users(users)
+            print("User added successfully.")
 
         elif choice == "2":
             try:
                 index = int(input("Enter the number of the user to delete: "))
                 if 1 <= index <= len(users):
                     removed = users.pop(index - 1)
-                    save_lines_to_file("users.txt", users)
-                    print(f"User '{removed}' deleted.")
+                    save_users(users)
+                    print(f"User '{removed['username']}' deleted.")
                 else:
                     print("Invalid user number.")
             except ValueError:
@@ -68,7 +92,11 @@ def view_all_orders():
 
     try:
         with open(orders_file, "r") as f:
-            all_orders = json.load(f)
+            content = f.read().strip()
+            if not content:
+                print("No orders found.")
+                return
+            all_orders = json.loads(content)
     except json.JSONDecodeError:
         print("Error reading orders.")
         return
@@ -150,7 +178,10 @@ def view_customer_feedback():
 def load_promos():
     try:
         with open(PROMO_FILE, "r") as f:
-            return json.load(f)
+            content = f.read().strip()
+            if not content:
+                return {}
+            return json.loads(content)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 

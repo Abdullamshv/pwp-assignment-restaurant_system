@@ -29,9 +29,12 @@ def load_menu():
     os.makedirs("data", exist_ok=True)
     try:
         with open("data/menu_items.txt", "r") as f:
-            return json.load(f)
+            content = f.read().strip()
+            if not content:
+                return {}
+            return json.loads(content)
     except (FileNotFoundError, json.JSONDecodeError):
-        print("Menu file not found or invalid!")
+        print("Menu file not found или содержит ошибку!")
         return {}
 
 def save_cart(user, cart):

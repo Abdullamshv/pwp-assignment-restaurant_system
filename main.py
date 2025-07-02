@@ -15,10 +15,14 @@ def load_accounts():
 
     with open(ACCOUNTS_FILE, "r") as file:
         for line in file:
-            parts = line.strip().split(":")
-            if len(parts) == 3:
-                username, password, role = parts
-                accounts[username] = {"password": password, "role": role}
+            line = line.strip()
+            if not line or ":" not in line:
+                continue
+            parts = line.split(":", 2)
+            if len(parts) != 3:
+                continue
+            username, password, role = parts
+            accounts[username] = {"password": password, "role": role}
     return accounts
 
 

@@ -6,3 +6,4 @@ Brian|||Brian123
 Brian|||Brian123
 brian|||brian
 seah:seah123:cashier
+testuser:1234:customer

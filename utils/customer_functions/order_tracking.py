@@ -3,7 +3,10 @@ import json
 def load_orders(username):
     try:
         with open("data/current_active_orders.txt", "r") as f:
-            all_orders = json.load(f)
+            content = f.read().strip()
+            if not content:
+                return {}
+            all_orders = json.loads(content)
             return {
                 order_id: order
                 for order_id, order in all_orders.items()
