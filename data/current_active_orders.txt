@@ -40,5 +40,46 @@
             }
         ],
         "discounts": []
+    },
+    "D04": {
+        "system_user": "Guest_8083",
+        "display_name": "Alex",
+        "type": "Dine-In",
+        "table_number": "34",
+        "items": [
+            [
+                "S1",
+                2,
+                "no salt"
+            ]
+        ],
+        "item_details": {
+            "S1": "French Fries"
+        },
+        "cart_contents": [
+            {
+                "id": "S1",
+                "name": "French Fries",
+                "price": 5.0,
+                "quantity": 2,
+                "remarks": "no salt",
+                "type": "single",
+                "contents": {}
+            }
+        ],
+        "timestamp": "2025-07-03 19:41:43",
+        "remarks": "i need a fork",
+        "status": "Pending",
+        "customizations": [
+            {
+                "id": "S1",
+                "name": "French Fries",
+                "price": 5.0,
+                "quantity": 2,
+                "remarks": "no salt",
+                "type": "single",
+                "contents": {}
+            }
+        ]
     }
 }
